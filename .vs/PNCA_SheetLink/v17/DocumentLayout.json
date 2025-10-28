@@ -3,52 +3,68 @@
   "WorkspaceRootPath": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\model\\excelwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\excelwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\viewmodel\\sheetlinkimportviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\viewmodel\\sheetlinkimportviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\model\\revitdbupdater.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\revitdbupdater.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\model\\scheduledatafromelements.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\scheduledatafromelements.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\viewmodel\\sheetlinkmainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\model\\excelwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\excelwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\viewmodel\\sheetlinkmainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\viewmodel\\sheetlinkmainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\model\\scheduledatabuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\scheduledatabuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\model\\datatablecomparer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\datatablecomparer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\revitentrypoint\\schedulefromelementsextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\revitentrypoint\\schedulefromelementsextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\model\\scheduledelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\model\\scheduledelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\scheduledelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\model\\scheduledfield.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\scheduledfield.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\viewmodel\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\viewmodel\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\view\\sheetlinkmain.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\view\\sheetlinkmain.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\model\\scheduledataastext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\scheduledataastext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\viewmodel\\viewmodelbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\viewmodel\\viewmodelbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\viewmodel\\viewmodelbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\view\\sheetlinkimport.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\view\\sheetlinkimport.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\view\\sheetlinkmain.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\view\\sheetlinkmain.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\view\\sheetlinkimport.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\view\\sheetlinkimport.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\revitentrypoint\\importdatafromexcel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\revitentrypoint\\importdatafromexcel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\revitentrypoint\\schedulefromelementsextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\revitentrypoint\\schedulefromelementsextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\sheetlink\\model\\excelreader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\excelreader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\model\\scheduledatabuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\model\\scheduledatabuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|c:\\users\\aravind.krishnan\\documents\\aravind\\solution files\\pnca_sheetlink\\sheetlink\\view\\sheetlinkmain.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C264C4C5-E87F-49F2-8770-1B246FAFC19C}|PNCA_SheetLink.csproj|solutionrelative:sheetlink\\view\\sheetlinkmain.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,24 +74,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ScheduleDataBuilder.cs",
-              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduleDataBuilder.cs",
-              "RelativeDocumentMoniker": "SheetLink\\Model\\ScheduleDataBuilder.cs",
-              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduleDataBuilder.cs",
-              "RelativeToolTip": "SheetLink\\Model\\ScheduleDataBuilder.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAgwBcAAAA3AAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "SheetLinkMain.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\View\\SheetLinkMain.xaml.cs",
+              "RelativeDocumentMoniker": "SheetLink\\View\\SheetLinkMain.xaml.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\View\\SheetLinkMain.xaml.cs",
+              "RelativeToolTip": "SheetLink\\View\\SheetLinkMain.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T09:36:36.293Z",
+              "WhenOpened": "2025-10-28T05:10:05.397Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "SheetLinkMainViewModel.cs",
               "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\ViewModel\\SheetLinkMainViewModel.cs",
               "RelativeDocumentMoniker": "SheetLink\\ViewModel\\SheetLinkMainViewModel.cs",
@@ -83,102 +99,89 @@
               "RelativeToolTip": "SheetLink\\ViewModel\\SheetLinkMainViewModel.cs",
               "ViewState": "AgIAAMIAAAAAAAAAAAAswNUAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T08:55:43.337Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ExcelWriter.cs",
-              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ExcelWriter.cs",
-              "RelativeDocumentMoniker": "SheetLink\\Model\\ExcelWriter.cs",
-              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ExcelWriter.cs",
-              "RelativeToolTip": "SheetLink\\Model\\ExcelWriter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T08:53:01.47Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ScheduleFromElementsExtractor.cs",
-              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\RevitEntryPoint\\ScheduleFromElementsExtractor.cs",
-              "RelativeDocumentMoniker": "SheetLink\\RevitEntryPoint\\ScheduleFromElementsExtractor.cs",
-              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\RevitEntryPoint\\ScheduleFromElementsExtractor.cs",
-              "RelativeToolTip": "SheetLink\\RevitEntryPoint\\ScheduleFromElementsExtractor.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACIAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T08:32:54.996Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ScheduleDataFromElements.cs",
-              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduleDataFromElements.cs",
-              "RelativeDocumentMoniker": "SheetLink\\Model\\ScheduleDataFromElements.cs",
-              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduleDataFromElements.cs",
-              "RelativeToolTip": "SheetLink\\Model\\ScheduleDataFromElements.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAnwDEAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T08:34:51.024Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ScheduledField.cs",
-              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduledField.cs",
-              "RelativeDocumentMoniker": "SheetLink\\Model\\ScheduledField.cs",
-              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduledField.cs",
-              "RelativeToolTip": "SheetLink\\Model\\ScheduledField.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T09:36:49.744Z",
+              "WhenOpened": "2025-10-28T05:46:18.744Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "ScheduledElement.cs",
-              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduledElement.cs",
-              "RelativeDocumentMoniker": "SheetLink\\Model\\ScheduledElement.cs",
-              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduledElement.cs",
-              "RelativeToolTip": "SheetLink\\Model\\ScheduledElement.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "DataTableComparer.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\DataTableComparer.cs",
+              "RelativeDocumentMoniker": "SheetLink\\Model\\DataTableComparer.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\DataTableComparer.cs",
+              "RelativeToolTip": "SheetLink\\Model\\DataTableComparer.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAgwC8AAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T09:36:57.217Z",
+              "WhenOpened": "2025-10-27T12:19:27.233Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RevitDBUpdater.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\RevitDBUpdater.cs",
+              "RelativeDocumentMoniker": "SheetLink\\Model\\RevitDBUpdater.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\RevitDBUpdater.cs",
+              "RelativeToolTip": "SheetLink\\Model\\RevitDBUpdater.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwBoAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T12:14:15.167Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ScheduleDataFromElements.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduleDataFromElements.cs",
+              "RelativeDocumentMoniker": "SheetLink\\Model\\ScheduleDataFromElements.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduleDataFromElements.cs",
+              "RelativeToolTip": "SheetLink\\Model\\ScheduleDataFromElements.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAiwEcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T12:26:23.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ExcelWriter.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ExcelWriter.cs",
+              "RelativeDocumentMoniker": "SheetLink\\Model\\ExcelWriter.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ExcelWriter.cs",
+              "RelativeToolTip": "SheetLink\\Model\\ExcelWriter.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T12:26:23.017Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SheetLinkImportViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\ViewModel\\SheetLinkImportViewModel.cs",
+              "RelativeDocumentMoniker": "SheetLink\\ViewModel\\SheetLinkImportViewModel.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\ViewModel\\SheetLinkImportViewModel.cs",
+              "RelativeToolTip": "SheetLink\\ViewModel\\SheetLinkImportViewModel.cs",
+              "ViewState": "AgIAANIAAAAAAAAAAADwv+UAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T05:50:25.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SheetLinkImport.xaml",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\View\\SheetLinkImport.xaml",
+              "RelativeDocumentMoniker": "SheetLink\\View\\SheetLinkImport.xaml",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\View\\SheetLinkImport.xaml",
+              "RelativeToolTip": "SheetLink\\View\\SheetLinkImport.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-28T05:38:04.615Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "RelayCommand.cs",
-              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\ViewModel\\RelayCommand.cs",
-              "RelativeDocumentMoniker": "SheetLink\\ViewModel\\RelayCommand.cs",
-              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\ViewModel\\RelayCommand.cs",
-              "RelativeToolTip": "SheetLink\\ViewModel\\RelayCommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T09:36:46.269Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "packages.config",
-              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\packages.config",
-              "RelativeDocumentMoniker": "packages.config",
-              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\packages.config",
-              "RelativeToolTip": "packages.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-10-23T09:35:15.738Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
               "Title": "ViewModelBase.cs",
               "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\ViewModel\\ViewModelBase.cs",
               "RelativeDocumentMoniker": "SheetLink\\ViewModel\\ViewModelBase.cs",
@@ -186,30 +189,98 @@
               "RelativeToolTip": "SheetLink\\ViewModel\\ViewModelBase.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T09:36:48.274Z"
+              "WhenOpened": "2025-10-28T06:55:25.835Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
+              "Title": "ScheduledElement.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduledElement.cs",
+              "RelativeDocumentMoniker": "SheetLink\\Model\\ScheduledElement.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduledElement.cs",
+              "RelativeToolTip": "SheetLink\\Model\\ScheduledElement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T06:41:05.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SheetLinkImport.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\View\\SheetLinkImport.xaml.cs",
+              "RelativeDocumentMoniker": "SheetLink\\View\\SheetLinkImport.xaml.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\View\\SheetLinkImport.xaml.cs",
+              "RelativeToolTip": "SheetLink\\View\\SheetLinkImport.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T05:40:54.35Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ImportDataFromExcel.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\RevitEntryPoint\\ImportDataFromExcel.cs",
+              "RelativeDocumentMoniker": "SheetLink\\RevitEntryPoint\\ImportDataFromExcel.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\RevitEntryPoint\\ImportDataFromExcel.cs",
+              "RelativeToolTip": "SheetLink\\RevitEntryPoint\\ImportDataFromExcel.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB4AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T05:46:25.608Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ScheduleFromElementsExtractor.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\RevitEntryPoint\\ScheduleFromElementsExtractor.cs",
+              "RelativeDocumentMoniker": "SheetLink\\RevitEntryPoint\\ScheduleFromElementsExtractor.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\RevitEntryPoint\\ScheduleFromElementsExtractor.cs",
+              "RelativeToolTip": "SheetLink\\RevitEntryPoint\\ScheduleFromElementsExtractor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T06:43:57.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "SheetLinkMain.xaml",
               "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\View\\SheetLinkMain.xaml",
               "RelativeDocumentMoniker": "SheetLink\\View\\SheetLinkMain.xaml",
               "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\View\\SheetLinkMain.xaml",
               "RelativeToolTip": "SheetLink\\View\\SheetLinkMain.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-23T11:36:21.251Z"
+              "WhenOpened": "2025-10-28T05:10:07.956Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ScheduleDataAsText.cs",
-              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduleDataAsText.cs",
-              "RelativeDocumentMoniker": "SheetLink\\Model\\ScheduleDataAsText.cs",
-              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduleDataAsText.cs",
-              "RelativeToolTip": "SheetLink\\Model\\ScheduleDataAsText.cs",
+              "DocumentIndex": 13,
+              "Title": "ExcelReader.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ExcelReader.cs",
+              "RelativeDocumentMoniker": "SheetLink\\Model\\ExcelReader.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ExcelReader.cs",
+              "RelativeToolTip": "SheetLink\\Model\\ExcelReader.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAwDUAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T12:19:25.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ScheduleDataBuilder.cs",
+              "DocumentMoniker": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduleDataBuilder.cs",
+              "RelativeDocumentMoniker": "SheetLink\\Model\\ScheduleDataBuilder.cs",
+              "ToolTip": "C:\\Users\\aravind.krishnan\\Documents\\ARAVIND\\SOLUTION FILES\\PNCA_SheetLink\\SheetLink\\Model\\ScheduleDataBuilder.cs",
+              "RelativeToolTip": "SheetLink\\Model\\ScheduleDataBuilder.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T09:37:15.577Z"
+              "WhenOpened": "2025-10-28T06:38:48.75Z",
+              "EditorCaption": ""
             }
           ]
         }

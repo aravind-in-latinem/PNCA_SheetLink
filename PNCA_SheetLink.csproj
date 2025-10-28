@@ -153,16 +153,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SheetLink\Model\DataTableComparer.cs" />
+    <Compile Include="SheetLink\Model\ExcelReader.cs" />
     <Compile Include="SheetLink\Model\ExcelWriter.cs" />
+    <Compile Include="SheetLink\Model\RevitDBUpdater.cs" />
     <Compile Include="SheetLink\Model\ScheduleDataAsText.cs" />
     <Compile Include="SheetLink\Model\ScheduleDataFromElements.cs" />
     <Compile Include="SheetLink\Model\ScheduleDataBuilder.cs" />
     <Compile Include="SheetLink\Model\ScheduledElement.cs" />
     <Compile Include="SheetLink\Model\ScheduledField.cs" />
+    <Compile Include="SheetLink\RevitEntryPoint\ImportDataFromExcel.cs" />
     <Compile Include="SheetLink\RevitEntryPoint\ScheduleFromElementsExtractor.cs" />
     <Compile Include="SheetLink\ViewModel\RelayCommand.cs" />
+    <Compile Include="SheetLink\ViewModel\ScheduleViewItem.cs" />
+    <Compile Include="SheetLink\ViewModel\SheetLinkImportViewModel.cs" />
     <Compile Include="SheetLink\ViewModel\ViewModelBase.cs" />
     <Compile Include="SheetLink\ViewModel\SheetLinkMainViewModel.cs" />
+    <Compile Include="SheetLink\View\SheetLinkImport.xaml.cs">
+      <DependentUpon>SheetLinkImport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SheetLink\View\SheetLinkMain.xaml.cs">
       <DependentUpon>SheetLinkMain.xaml</DependentUpon>
     </Compile>
@@ -193,10 +202,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="SheetLink\View\SheetLinkImport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SheetLink\View\SheetLinkMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SheetLink\Resources\PNC logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

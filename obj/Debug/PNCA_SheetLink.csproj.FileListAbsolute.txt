@@ -42,3 +42,5 @@ C:\Users\aravind.krishnan\Documents\ARAVIND\SOLUTION FILES\PNCA_SheetLink\obj\De
 C:\Users\aravind.krishnan\Documents\ARAVIND\SOLUTION FILES\PNCA_SheetLink\obj\Debug\PNCA_She.AA489E67.Up2Date
 C:\Users\aravind.krishnan\Documents\ARAVIND\SOLUTION FILES\PNCA_SheetLink\obj\Debug\PNCA_SheetLink.dll
 C:\Users\aravind.krishnan\Documents\ARAVIND\SOLUTION FILES\PNCA_SheetLink\obj\Debug\PNCA_SheetLink.pdb
+C:\Users\aravind.krishnan\Documents\ARAVIND\SOLUTION FILES\PNCA_SheetLink\obj\Debug\SheetLink\View\SheetLinkImport.g.cs
+C:\Users\aravind.krishnan\Documents\ARAVIND\SOLUTION FILES\PNCA_SheetLink\obj\Debug\SheetLink\View\SheetLinkImport.baml

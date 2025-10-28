@@ -19,7 +19,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private bool _isActiveViewSelected;
         private bool _isSelectScheduleSelected;
         private ScheduleViewItem _selectedSchedule;
-        private string _saveLocation;
+        private string _fileLocation;
         private ObservableCollection<ScheduleViewItem> _availableSchedules;
 
         public SheetLinkMainViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference)
@@ -29,8 +29,9 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
             // Initialize commands
             ExportCommand = new RelayCommand(ExecuteExport, CanExecuteExport);
+            ImportCommand = new RelayCommand(ExecuteImport, CanExecuteImport);
             CancelCommand = new RelayCommand(ExecuteCancel);
-            BrowseSaveLocationCommand = new RelayCommand(ExecuteBrowseSaveLocation);
+            BrowseFileLocationCommand = new RelayCommand(ExecuteBrowseFileLocation);
 
             // Initialize properties
             IsActiveViewSelected = true;
@@ -87,12 +88,12 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         }
 
         // TextBox Binding
-        public string SaveLocation
+        public string FileLocation
         {
-            get => _saveLocation;
+            get => _fileLocation;
             set
             {
-                if (SetProperty(ref _saveLocation, value))
+                if (SetProperty(ref _fileLocation, value))
                 {
                     // Update commands when save location changes
                     (ExportCommand as RelayCommand)?.RaiseCanExecuteChanged();
@@ -105,8 +106,9 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         #region Commands for Button Binding
 
         public ICommand ExportCommand { get; }
+        public ICommand ImportCommand { get; }
         public ICommand CancelCommand { get; }
-        public ICommand BrowseSaveLocationCommand { get; }
+        public ICommand BrowseFileLocationCommand { get; }
 
         #endregion
 
@@ -150,8 +152,26 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             }
 
             return hasValidSchedule &&
-                   !string.IsNullOrWhiteSpace(SaveLocation) &&
-                   System.IO.Path.HasExtension(SaveLocation);
+                   !string.IsNullOrWhiteSpace(FileLocation) &&
+                   System.IO.Path.HasExtension(FileLocation);
+        }
+        private bool CanExecuteImport()
+        {
+            //bool hasValidSchedule = false;
+
+            //if (IsActiveViewSelected && _uiDocument?.ActiveView is ViewSchedule)
+            //{
+            //    hasValidSchedule = true;
+            //}
+            //else if (IsSelectScheduleSelected && SelectedSchedule != null)
+            //{
+            //    hasValidSchedule = true;
+            //}
+
+            //return hasValidSchedule &&
+            //       !string.IsNullOrWhiteSpace(FileLocation) &&
+            //       System.IO.Path.HasExtension(FileLocation);
+            return true;
         }
 
         private void ExecuteExport()
@@ -177,9 +197,43 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                 }
 
                 // Call your export logic here
-                ExportScheduleToExcel(targetSchedule, SaveLocation);
+                ExportScheduleToExcel(targetSchedule, FileLocation);
 
-                TaskDialog.Show("Success", $"Schedule exported successfully to:\n{SaveLocation}");
+                TaskDialog.Show("Success", $"Schedule exported successfully to:\n{FileLocation}");
+            }
+            catch (System.Exception ex)
+            {
+                TaskDialog.Show("Export Error", $"Failed to export schedule: {ex.Message}");
+            }
+        }
+
+        private void ExecuteImport()
+        {
+            try
+            {
+                ViewSchedule targetSchedule = null;
+
+                // Determine which schedule to export
+                if (IsActiveViewSelected && _uiDocument.ActiveView is ViewSchedule activeSchedule)
+                {
+                    targetSchedule = activeSchedule;
+                }
+                else if (IsSelectScheduleSelected && SelectedSchedule != null)
+                {
+                    targetSchedule = SelectedSchedule.Schedule;
+                }
+
+                if (targetSchedule == null)
+                {
+                    TaskDialog.Show("Error", "No valid schedule selected for export.");
+                    return;
+                }
+
+                // Call your export logic here
+                ImportScheduleFromExcel(targetSchedule, FileLocation);
+
+
+                TaskDialog.Show("Success", $"Schedule exported successfully to:\n{FileLocation}");
             }
             catch (System.Exception ex)
             {
@@ -193,19 +247,19 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             System.Windows.Window.GetWindow(_yourWindowReference)?.Close();
         }
 
-        private void ExecuteBrowseSaveLocation()
+        private void ExecuteBrowseFileLocation()
         {
-            var saveFileDialog = new SaveFileDialog
+            var openFileDialog = new OpenFileDialog
             {
                 Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*",
                 DefaultExt = "xlsx",
                 FileName = SelectedSchedule?.Name ?? "Schedule",
                 Title = "Select Export Location"
             };
-            bool? success = saveFileDialog.ShowDialog();
+            bool? success = openFileDialog.ShowDialog();
             if (success == true )
             {
-                SaveLocation = saveFileDialog.FileName;
+                FileLocation = openFileDialog.FileName;
             }
         }
 
@@ -217,7 +271,23 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             writer.CreateExcelFile(dataTableData);
         }
 
+        private void ImportScheduleFromExcel(ViewSchedule schedule, string filePath)
+        {            
+            var excelReader = new ExcelReader(FileLocation);
+            var dataTable = excelReader.ReadExcelFile();
+            ScheduleDataFromElements scheduleDataFromElements = new ScheduleDataFromElements(schedule);
+            var dataTableData = scheduleDataFromElements.CreateScheduleDataTable(_document);
+            if(!DataTableComparer.AreSchemasEqual(dataTable, dataTableData))
+            {
+                TaskDialog.Show("Import Error", "The schema of the Excel file does not match the schedule schema.");
+                return;
+            }
+            var differences = DataTableComparer.GetDifferenceReport(dataTable,dataTableData);
+            var revitDBUpdater = new RevitDBUpdater(_document,_uiDocument);
+            revitDBUpdater.UpdateRevitDB(dataTable);
+
+        }
+
         #endregion
     }
-    
 }

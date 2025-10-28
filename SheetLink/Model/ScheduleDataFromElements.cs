@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace PNCA_SheetLink.SheetLink.Model
 
     {
         public  ViewSchedule ScheduleView { get; set; }
+        public List<ScheduledElement> ScheduledElements { get; set; } = new List<ScheduledElement>();
 
         public ScheduleDataFromElements(ViewSchedule scheduleView)
         {
@@ -20,7 +22,6 @@ namespace PNCA_SheetLink.SheetLink.Model
         }
         public DataTable CreateScheduleDataTable(Document document)
         {
-            var scheduledElements = new List<ScheduledElement>();
             var dataTableBuilder = new ScheduleDataBuilder();
             #region ViewCollector
             var visibleElem = new FilteredElementCollector(document, ScheduleView.Id).ToElements();
@@ -31,7 +32,7 @@ namespace PNCA_SheetLink.SheetLink.Model
             {
                 var fieldId = ScheduleView.Definition.GetField(i).ParameterId;
                 var fieldIndex = ScheduleView.Definition.GetField(i).FieldIndex;
-                if (fieldId != new ElementId(-1))
+                if (fieldId != new ElementId(Convert.ToInt64(-1)))
                 {
                     if (!paramIdFIeldIndexPair.ContainsKey(fieldId))
                         paramIdFIeldIndexPair.Add(fieldId, fieldIndex);
@@ -61,10 +62,10 @@ namespace PNCA_SheetLink.SheetLink.Model
                 var typeParameterSet = elemSymbol.Parameters.OfType<Parameter>().ToList();
 
                 scheduledElement.ScheduledFields.AddRange(processParameters(elem, paramIdFIeldIndexPair, "Type", typeParameterSet));
-                scheduledElements.Add(scheduledElement);
+                ScheduledElements.Add(scheduledElement);
 
             }
-            var dataTable = dataTableBuilder.PrepareTableData(scheduledElements);
+            var dataTable = dataTableBuilder.PrepareTableData(ScheduledElements);
 
             //TaskDialog.Show("Success", "Read Success");
 

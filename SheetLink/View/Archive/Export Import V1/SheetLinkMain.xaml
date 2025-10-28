@@ -28,7 +28,9 @@
         <Grid Grid.Row="5" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="*"/>            
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="20"/>
@@ -37,9 +39,12 @@
             <Button Content="Export" VerticalAlignment="Center" Height="20"
                 Command="{Binding ExportCommand}" Grid.Column="1"/>
 
+            <Button Content="Import" VerticalAlignment="Center" Height="20"
+    Command="{Binding ImportCommand}" Grid.Column="3"/>
+
 
             <Button Content="Cancel" VerticalAlignment="Center" 
-                Grid.Column="3" Height="20"
+                Grid.Column="5" Height="20"
                 Command="{Binding CancelCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
         </Grid>
@@ -51,13 +56,13 @@
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0" 
                 TextWrapping="Wrap" 
-                Text="{Binding SaveLocation}"
+                Text="{Binding FileLocation}"
                 VerticalAlignment="Center" Height="20"/>
 
             <Button Content="Browse..." Grid.Column="1"
                 VerticalAlignment="Center" 
                 Height="20"
-                Command="{Binding BrowseSaveLocationCommand}" Margin="0,0,0,0"/>
+                Command="{Binding BrowseFileLocationCommand}" Margin="0,0,0,0"/>
         </Grid>
 
         <Grid Row="5" Column="1">
