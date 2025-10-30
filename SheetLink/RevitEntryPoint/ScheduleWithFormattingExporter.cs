@@ -12,36 +12,26 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
 {
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
-    public class ImportDataFromExcel : IExternalCommand
+    public class ScheduleWithFormattingExporter : IExternalCommand
 
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            try
-            {
             var uiApplication = commandData.Application;
             var application = uiApplication.Application;
             var uiDocument = uiApplication.ActiveUIDocument;
             var document = uiDocument.Document;
 
-            var importWindow = new SheetLinkImport(document, uiDocument);
+
+            var sheetLinkWithFormatting = new SheetLinkWithFormatting(document, uiDocument);
 
             // Set owner to Revit window so it stays on top and modal
-            System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(importWindow);
+            System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(sheetLinkWithFormatting);
             helper.Owner = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
-            
-            importWindow.ShowDialog();              
 
+            sheetLinkWithFormatting.ShowDialog();           
 
             return Result.Succeeded;
-
-            }
-            catch(Exception ex)
-            {
-                TaskDialog.Show("Error", $"Failed to update element. Error: {ex.Message}");
-                return Result.Failed;
-            }
-            
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -19,7 +21,7 @@ namespace PNCA_SheetLink.SheetLink.Model
             _uiDocument = uiDocument;
         }
 
-        public void UpdateRevitDB(DataTable dataTable)
+        public void UpdateRevitDB(DataTable dataTable, List<ScheduledElement> scheduledElements)
         {
             using (var t = new Transaction(_document))
             {
@@ -30,11 +32,14 @@ namespace PNCA_SheetLink.SheetLink.Model
                     {
 
                         var elemId = new ElementId(Convert.ToInt64(row["ElementId"]));
-                        var element = _document.GetElement(elemId);
                         var paramName = row["ParameterName"].ToString();
-                        var param = element.LookupParameter(paramName);
-                        var setStat = param.Set(row["ValueInTable1"].ToString());
+                        var param = scheduledElements
+                        .FirstOrDefault(a => a.RowElementId?.Value == Convert.ToInt64(row["ElementId"]))
+                        ?.ScheduledFields?
+                        .FirstOrDefault(f => f.FieldName == paramName)?
+                        .ParameterElement;
 
+                        var setStat = param?.Set(row["ValueInTable1"].ToString());
                     }
                     catch (Exception ex)
                     {

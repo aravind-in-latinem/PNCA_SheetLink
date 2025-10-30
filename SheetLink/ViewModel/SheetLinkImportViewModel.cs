@@ -176,7 +176,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                     return;
                 }
 
-                // Call your export logic here
+                // Import logic
                 ImportScheduleFromExcel(targetSchedule, FileLocation);
 
 
@@ -223,13 +223,9 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             }
             var differences = DataTableComparer.GetDifferenceReport(dataTable, dataTableData);
             var revitDBUpdater = new RevitDBUpdater(_document, _uiDocument);
-            revitDBUpdater.UpdateRevitDB(differences);
-
-        
+            revitDBUpdater.UpdateRevitDB(differences,scheduleDataFromElements.ScheduledElements);       
         
         }
-
-
         #endregion
     }
     

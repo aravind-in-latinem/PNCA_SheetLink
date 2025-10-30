@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-2-35986912
+3-978566498
 
-22-2035235337
+25391995326
 1391231660608
-SheetLink\View\SheetLinkImport.xaml;SheetLink\View\SheetLinkMain.xaml;
+SheetLink\View\SheetLinkImport.xaml;SheetLink\View\SheetLinkWithFormatting.xaml;SheetLink\View\SheetLinkMain.xaml;
 
-True
+False
 

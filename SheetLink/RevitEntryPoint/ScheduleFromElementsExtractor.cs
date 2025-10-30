@@ -18,6 +18,9 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
+            try
+            {
+
             var uiApplication = commandData.Application;
             var application = uiApplication.Application;
             var uiDocument = uiApplication.ActiveUIDocument;
@@ -35,6 +38,13 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
             mainWindow.ShowDialog();               
 
             return Result.Succeeded;
+            }
+            catch (Exception ex)
+            {
+                TaskDialog.Show("Error", $"Failed to save schedule. Error: {ex.Message}");
+                return Result.Failed;
+            }
+
         }
     }
 }

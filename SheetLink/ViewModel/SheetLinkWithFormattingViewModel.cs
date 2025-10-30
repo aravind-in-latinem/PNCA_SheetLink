@@ -6,10 +6,11 @@ using System.Linq;
 using Microsoft.Win32;
 //using Autodesk.Revit.Creation;
 using PNCA_SheetLink.SheetLink.Model;
+using PNCA_SheetLink.SheetLink.RevitEntryPoint;
 
 namespace PNCA_SheetLink.SheetLink.ViewModel
 {
-    public class SheetLinkMainViewModel : ViewModelBase
+    public class SheetLinkWithFormattingViewModel : ViewModelBase
     {
         private readonly Document _document;
         private readonly UIDocument _uiDocument;
@@ -22,7 +23,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private string _saveLocation;
         private ObservableCollection<ScheduleViewItem> _availableSchedules;
 
-        public SheetLinkMainViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference)
+        public SheetLinkWithFormattingViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference)
         {
             _document = document;
             _uiDocument = uiDocument;
@@ -176,7 +177,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                     return;
                 }
 
-                // Export logic
+                // Export logic here
                 ExportScheduleToExcel(targetSchedule, SaveLocation);
 
                 TaskDialog.Show("Success", $"Schedule exported successfully to:\n{SaveLocation}");
@@ -211,10 +212,10 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
         private void ExportScheduleToExcel(ViewSchedule schedule, string filePath)
         {
-            ScheduleDataFromElements scheduleDataFromElements = new ScheduleDataFromElements(schedule);
-            var dataTableData = scheduleDataFromElements.CreateScheduleDataTable(_document);
+            var schedulewithFormatting = new ScheduleWithFormatting();
+            var dataTable = schedulewithFormatting.GetDataTableWithRevitFormatting(_document, schedule);
             ExcelWriter writer = new ExcelWriter(filePath);
-            writer.CreateExcelFile(dataTableData);
+            writer.CreateExcelFile(dataTable);
         }
 
         #endregion

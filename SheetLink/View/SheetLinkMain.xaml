@@ -71,7 +71,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="84"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="1" Source="/PNCA_SheetLink;component/SheetLink/Resources/PNC logo.png" HorizontalAlignment="Center" Grid.Row="1" Margin="0,0,0,11" Grid.RowSpan="2" Width="83"/>
+            <Image Grid.Column="1" Source="/PNCA_SheetLink;component/SheetLink/Resources/PNC logo.png" HorizontalAlignment="Center" Grid.Row="1" Margin="0,0,0,11" Grid.RowSpan="2" Width="45"/>
         </Grid>
 
 
