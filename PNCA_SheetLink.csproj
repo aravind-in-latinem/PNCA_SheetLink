@@ -41,6 +41,9 @@
     <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
+    <Reference Include="FluentWPF, Version=0.10.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\FluentWPF.0.10.2\lib\net45\FluentWPF.dll</HintPath>
+    </Reference>
     <Reference Include="Irony, Version=1.0.11.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
       <HintPath>packages\Irony.NetCore.1.0.11\lib\net461\Irony.dll</HintPath>
     </Reference>
@@ -160,7 +163,7 @@
     <Compile Include="SheetLink\RevitEntryPoint\ScheduleWithFormattingExporter.cs" />
     <Compile Include="SheetLink\Model\ScheduleWithFormatting.cs" />
     <Compile Include="SheetLink\Model\ScheduleDataFromElements.cs" />
-    <Compile Include="SheetLink\Model\ScheduleDataBuilder.cs" />
+    <Compile Include="SheetLink\Model\DataTableCreator.cs" />
     <Compile Include="SheetLink\Model\ScheduledElement.cs" />
     <Compile Include="SheetLink\Model\ScheduledField.cs" />
     <Compile Include="SheetLink\RevitEntryPoint\ImportDataFromExcel.cs" />
@@ -170,15 +173,18 @@
     <Compile Include="SheetLink\ViewModel\SheetLinkImportViewModel.cs" />
     <Compile Include="SheetLink\ViewModel\SheetLinkWithFormattingViewModel.cs" />
     <Compile Include="SheetLink\ViewModel\ViewModelBase.cs" />
-    <Compile Include="SheetLink\ViewModel\SheetLinkMainViewModel.cs" />
+    <Compile Include="SheetLink\ViewModel\SheetLinkExportViewModel.cs" />
     <Compile Include="SheetLink\View\SheetLinkImport.xaml.cs">
       <DependentUpon>SheetLinkImport.xaml</DependentUpon>
     </Compile>
     <Compile Include="SheetLink\View\SheetLinkWithFormatting.xaml.cs">
       <DependentUpon>SheetLinkWithFormatting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SheetLink\View\SheetLinkMain.xaml.cs">
-      <DependentUpon>SheetLinkMain.xaml</DependentUpon>
+    <Compile Include="SheetLink\View\SheetLinkExport.xaml.cs">
+      <DependentUpon>SheetLinkExport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SheetLink\View\SheetLinkUserControl.xaml.cs">
+      <DependentUpon>SheetLinkUserControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -215,13 +221,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SheetLink\View\SheetLinkMain.xaml">
+    <Page Include="SheetLink\View\SheetLinkExport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SheetLink\View\SheetLinkUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="SheetLink\Resources\PNC logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SheetLink\Resources\Sheetlink-close-32x32.png" />
+    <Resource Include="SheetLink\Resources\Sheetlink-exporticon-32x32.png" />
+    <Resource Include="SheetLink\Resources\Sheetlink-icon-icofiletosend.ico" />
+    <Resource Include="SheetLink\Resources\Sheetlink-importicon-32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PNCA_SheetLink.SheetLink.Model
 {
-    public class ScheduleDataBuilder
+    public class DataTableCreator
 
     {
         public DataTable PrepareTableData(List<ScheduledElement> scheduledElements)

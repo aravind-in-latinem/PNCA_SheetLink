@@ -29,7 +29,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
                          
 
             // Create and show your window
-            var mainWindow = new SheetLinkMain(document, uiDocument);
+            var mainWindow = new SheetLinkExport(document, uiDocument);
 
             // Set owner to Revit window so it stays on top and modal
             System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(mainWindow);

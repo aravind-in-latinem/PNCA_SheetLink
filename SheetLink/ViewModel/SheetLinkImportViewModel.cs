@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.Win32;
 //using Autodesk.Revit.Creation;
 using PNCA_SheetLink.SheetLink.Model;
+using System.Windows;
 
 namespace PNCA_SheetLink.SheetLink.ViewModel
 {
@@ -21,6 +22,9 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private ScheduleViewItem _selectedSchedule;
         private string _fileLocation;
         private ObservableCollection<ScheduleViewItem> _availableSchedules;
+        private string _scheduleSearchText;
+        private ObservableCollection<ScheduleViewItem> _filteredSchedules;
+        private bool _shouldOpenDropDown;
 
         public SheetLinkImportViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference)
         {
@@ -35,6 +39,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             // Initialize properties
             IsActiveViewSelected = true;
             LoadAvailableSchedules();
+            FilteredSchedules = new ObservableCollection<ScheduleViewItem>(AvailableSchedules);
             _yourWindowReference = yourWindowReference;
         }
         
@@ -63,10 +68,43 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         public bool IsSelectScheduleSelected
         {
             get => _isSelectScheduleSelected;
-            set => SetProperty(ref _isSelectScheduleSelected, value);
+            set
+            {
+                SetProperty(ref _isSelectScheduleSelected, value);
+                ShouldOpenDropDown = true;
+            }
         }
 
         // ComboBox Binding
+        public string ScheduleSearchText
+        {
+            get => _scheduleSearchText;
+            set
+            {
+                if (SetProperty(ref _scheduleSearchText, value))
+                {
+
+                    // Auto-open dropdown when text changes and there are filtered items
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        ShouldOpenDropDown = true;
+                        FilterSchedules();
+                    }
+                }
+            }
+        }
+        public bool ShouldOpenDropDown
+        {
+            get => _shouldOpenDropDown;
+            set => SetProperty(ref _shouldOpenDropDown, value);
+        }
+
+        public ObservableCollection<ScheduleViewItem> FilteredSchedules
+        {
+            get => _filteredSchedules;
+            set => SetProperty(ref _filteredSchedules, value);
+        }
+
         public ObservableCollection<ScheduleViewItem> AvailableSchedules
         {
             get => _availableSchedules;
@@ -130,6 +168,23 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                 }).OrderBy(x => x.Name)
             );
         }
+        private void FilterSchedules()
+        {
+            if (string.IsNullOrWhiteSpace(ScheduleSearchText))
+            {
+                FilteredSchedules = new ObservableCollection<ScheduleViewItem>(AvailableSchedules);
+            }
+            else
+            {
+                var lowerText = ScheduleSearchText.ToLower();
+                var filtered = AvailableSchedules
+                    .Where(s => s.Name.ToLower().Contains(lowerText))
+                    .OrderBy(s => s.Name)
+                    .ToList();
+
+                FilteredSchedules = new ObservableCollection<ScheduleViewItem>(filtered);
+            }
+        }
 
         private bool CanExecuteImport()
         {
@@ -190,7 +245,6 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
         private void ExecuteCancel()
         {
-            // Close the window
             System.Windows.Window.GetWindow(_yourWindowReference)?.Close();
         }
 

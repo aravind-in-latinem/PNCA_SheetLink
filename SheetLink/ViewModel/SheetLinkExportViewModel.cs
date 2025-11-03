@@ -9,7 +9,7 @@ using PNCA_SheetLink.SheetLink.Model;
 
 namespace PNCA_SheetLink.SheetLink.ViewModel
 {
-    public class SheetLinkMainViewModel : ViewModelBase
+    public class SheetLinkExportViewModel : ViewModelBase
     {
         private readonly Document _document;
         private readonly UIDocument _uiDocument;
@@ -21,8 +21,10 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private ScheduleViewItem _selectedSchedule;
         private string _saveLocation;
         private ObservableCollection<ScheduleViewItem> _availableSchedules;
-
-        public SheetLinkMainViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference)
+        private string _scheduleSearchText;
+        private ObservableCollection<ScheduleViewItem> _filteredSchedules;
+        private bool _shouldOpenDropDown;
+        public SheetLinkExportViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference)
         {
             _document = document;
             _uiDocument = uiDocument;
@@ -35,6 +37,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             // Initialize properties
             IsActiveViewSelected = true;
             LoadAvailableSchedules();
+            FilteredSchedules = new ObservableCollection<ScheduleViewItem>(AvailableSchedules);
             _yourWindowReference = yourWindowReference;
         }
         
@@ -63,10 +66,43 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         public bool IsSelectScheduleSelected
         {
             get => _isSelectScheduleSelected;
-            set => SetProperty(ref _isSelectScheduleSelected, value);
+            set 
+            { 
+                SetProperty(ref _isSelectScheduleSelected, value);
+                ShouldOpenDropDown = true;
+            }
         }
 
         // ComboBox Binding
+        public string ScheduleSearchText
+        {
+            get => _scheduleSearchText;
+            set
+            {
+                if (SetProperty(ref _scheduleSearchText, value))
+                {
+
+                    // Auto-open dropdown when text changes and there are filtered items
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        ShouldOpenDropDown = true;
+                        FilterSchedules();
+                    }
+                }
+            }
+        }
+        public bool ShouldOpenDropDown
+        {
+            get => _shouldOpenDropDown;
+            set => SetProperty(ref _shouldOpenDropDown, value);
+        }
+
+        public ObservableCollection<ScheduleViewItem> FilteredSchedules
+        {
+            get => _filteredSchedules;
+            set => SetProperty(ref _filteredSchedules, value);
+        }
+
         public ObservableCollection<ScheduleViewItem> AvailableSchedules
         {
             get => _availableSchedules;
@@ -129,6 +165,23 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                     Schedule = schedule
                 }).OrderBy(x => x.Name)
             );
+        }
+        private void FilterSchedules()
+        {
+            if (string.IsNullOrWhiteSpace(ScheduleSearchText))
+            {
+                FilteredSchedules = new ObservableCollection<ScheduleViewItem>(AvailableSchedules);
+            }
+            else
+            {
+                var lowerText = ScheduleSearchText.ToLower();
+                var filtered = AvailableSchedules
+                    .Where(s => s.Name.ToLower().Contains(lowerText))
+                    .OrderBy(s => s.Name)
+                    .ToList();
+
+                FilteredSchedules = new ObservableCollection<ScheduleViewItem>(filtered);
+            }
         }
 
         private bool CanExecuteExport()

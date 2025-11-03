@@ -24,7 +24,7 @@ namespace PNCA_SheetLink.SheetLink.Model
         }
         public DataTable CreateScheduleDataTable(Document document)
         {
-            var dataTableBuilder = new ScheduleDataBuilder();
+            var dataTableBuilder = new DataTableCreator();
             #region ViewCollector
             var visibleElem = new FilteredElementCollector(document, ScheduleView.Id).ToElements();
             var scheduleFieldCount = ScheduleView.Definition.GetFieldCount();

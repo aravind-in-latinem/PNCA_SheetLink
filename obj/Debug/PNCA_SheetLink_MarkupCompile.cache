@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-3-978566498
+4-172696894
 
-25391995326
-1391231660608
-SheetLink\View\SheetLinkImport.xaml;SheetLink\View\SheetLinkWithFormatting.xaml;SheetLink\View\SheetLinkMain.xaml;
+25-2144548092
+140852197780
+SheetLink\View\SheetLinkImport.xaml;SheetLink\View\SheetLinkWithFormatting.xaml;SheetLink\View\SheetLinkExport.xaml;SheetLink\View\SheetLinkUserControl.xaml;
 
-True
+False
 
