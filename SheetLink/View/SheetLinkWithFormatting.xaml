@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PNCA_SheetLink.SheetLink.View"        
         mc:Ignorable="d"
         WindowStyle="None"
+        AllowsTransparency="True"
         Title="SheetLink - Export Schedule" Height="250" Width="566">
 
 
@@ -17,13 +18,13 @@
             <Border Background="#2B2B2B" Height="32" DockPanel.Dock="Top" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
                 <DockPanel>
                     <!-- App Icon -->
-                    <Image Source="/PNCA_SheetLink;component/SheetLink/Resources/Sheetlink-icon-icofiletosend.ico"
-                           Width="28" Height="28"
+                    <Image Source="pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/SchedulewithFormatting-Light.ico"
+                           Width="20" Height="20"
                            Margin="10,0,6,0"
                            VerticalAlignment="Center"/>
 
                     <!-- Title text -->
-                    <TextBlock Text="SheetLink - Export Schedule"
+                    <TextBlock Text="ScheduleSyncer - Export with Revit Schedule Formatting Settings Retained"
                                Foreground="White"
                                FontWeight="SemiBold"
                                VerticalAlignment="Center"/>
@@ -58,7 +59,7 @@
                 IsActiveViewSelected="{Binding IsActiveViewSelected, Mode=TwoWay}"
                 IsSelectScheduleSelected="{Binding IsSelectScheduleSelected, Mode=TwoWay}"                    
                 ShouldOpenDropDown="{Binding ShouldOpenDropDown, Mode=TwoWay}"
-                IOButtonText="    Export"
+                IOButtonText="Export"
                 ExportCommand="{Binding ExportCommand}"                    
                 CancelCommand="{Binding CancelCommand}"
                 BrowseSaveLocationCommand="{Binding BrowseSaveLocationCommand}"/>

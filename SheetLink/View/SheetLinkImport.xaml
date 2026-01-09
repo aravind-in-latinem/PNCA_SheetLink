@@ -7,6 +7,7 @@
         xmlns:userControls="clr-namespace:PNCA_SheetLink.SheetLink.View"
         mc:Ignorable="d"
         WindowStyle="None"
+        AllowsTransparency="True"
         Title="SheetLink - Import Schedule" Height="250" Width="566">
     <!-- Outer border to simulate window frame -->
     <Border Background="#1E1E1E" BorderBrush="#3A3A3A" BorderThickness="1" VerticalAlignment="Top" Padding="0,0,0,0">
@@ -16,13 +17,13 @@
             <Border Background="#2B2B2B" Height="32" DockPanel.Dock="Top" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
                 <DockPanel>
                     <!-- App Icon -->
-                    <Image Source="/PNCA_SheetLink;component/SheetLink/Resources/Sheetlink-icon-icofiletosend.ico"
-                           Width="28" Height="28"
+                    <Image Source="pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/ImportExcel-Light.ico"
+                           Width="20" Height="20"
                            Margin="10,0,6,0"
                            VerticalAlignment="Center"/>
 
                     <!-- Title text -->
-                    <TextBlock Text="SheetLink - Export Schedule"
+                    <TextBlock Text="ScheduleSyncer - Import Schedule"
                                Foreground="White"
                                FontWeight="SemiBold"
                                VerticalAlignment="Center"/>
@@ -57,7 +58,7 @@
                     IsActiveViewSelected="{Binding IsActiveViewSelected, Mode=TwoWay}"
                     IsSelectScheduleSelected="{Binding IsSelectScheduleSelected, Mode=TwoWay}" 
                     ShouldOpenDropDown="{Binding ShouldOpenDropDown, Mode=TwoWay}"
-                    IOButtonText="    Import"
+                    IOButtonText="Import"
                     ExportCommand="{Binding ImportCommand}"                    
                     CancelCommand="{Binding CancelCommand}"
                     BrowseSaveLocationCommand="{Binding BrowseFileLocationCommand}"/>

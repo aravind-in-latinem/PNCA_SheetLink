@@ -6,20 +6,21 @@ namespace PNCA_SheetLink.SheetLink.Model
 {
     public class DataTableComparer
     {
-        public static DataTable GetDifferenceReport(DataTable dt1, DataTable dt2)
+        public static DataTable GetDifferenceReport(DataTable checkTable, DataTable referenceTable,ScheduleDataFromElements sourceData)
         {
             // Prepare the result table
             DataTable result = new DataTable("Differences");
             result.Columns.Add("ElementId", typeof(string));
             result.Columns.Add("ParameterName", typeof(string));
+            result.Columns.Add("UnitType", typeof(string));
             result.Columns.Add("ValueInTable1", typeof(string));
             result.Columns.Add("ValueInTable2", typeof(string));
 
             // Create lookup for table2 by ElementId for fast access
-            var dt2Lookup = dt2.AsEnumerable()
+            var dt2Lookup = referenceTable.AsEnumerable()
                 .ToDictionary(r => r["ElementId"].ToString(), r => r);
 
-            foreach (DataRow row1 in dt1.Rows)
+            foreach (DataRow row1 in checkTable.Rows)
             {
                 string elementId = row1["ElementId"].ToString();
 
@@ -28,11 +29,11 @@ namespace PNCA_SheetLink.SheetLink.Model
                     continue; // skip if not present
 
                 // Go through every column except ElementId
-                foreach (DataColumn col in dt1.Columns)
+                foreach (DataColumn col in checkTable.Columns)
                 {
                     if (col.ColumnName == "ElementId") continue;
 
-                    if (!dt2.Columns.Contains(col.ColumnName))
+                    if (!referenceTable.Columns.Contains(col.ColumnName))
                         continue; // skip parameters not present in both
 
                     string val1 = row1[col.ColumnName]?.ToString() ?? "";
@@ -41,7 +42,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                     if (!val1.Equals(val2, StringComparison.OrdinalIgnoreCase))
                     {
                         // Add to result table
-                        result.Rows.Add(elementId, col.ColumnName, val1, val2);
+                        result.Rows.Add(elementId, col.ColumnName, GetUnitTypeForField(sourceData,col.ColumnName),val1, val2);
                     }
                 }
             }
@@ -74,6 +75,34 @@ namespace PNCA_SheetLink.SheetLink.Model
             // 4. If everything matches
             return true;
         }
+        public static string GetUnitTypeForField(ScheduleDataFromElements scheduleData, string fieldName)
+        {
+            if (scheduleData == null || string.IsNullOrWhiteSpace(fieldName))
+                return string.Empty;
+
+            // Search through all scheduled elements
+            foreach (var scheduledElement in scheduleData.ScheduledElements)
+            {
+                if (scheduledElement == null || scheduledElement.ScheduledFields == null)
+                    continue;
+
+                // Look for the field name match (case-insensitive)
+                foreach (var field in scheduledElement.ScheduledFields)
+                {
+                    if (field != null && string.Equals(field.FieldName, fieldName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return field.UnitType ?? string.Empty;
+                    }
+                }
+            }
+
+            // If nothing found, return empty string
+            return string.Empty;
+        }
+
 
     }
+
+
+
 }

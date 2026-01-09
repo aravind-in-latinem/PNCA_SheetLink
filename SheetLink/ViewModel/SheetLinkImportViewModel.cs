@@ -7,6 +7,8 @@ using Microsoft.Win32;
 //using Autodesk.Revit.Creation;
 using PNCA_SheetLink.SheetLink.Model;
 using System.Windows;
+using System.Text;
+using System;
 
 namespace PNCA_SheetLink.SheetLink.ViewModel
 {
@@ -211,6 +213,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
         private void ExecuteImport()
         {
+            
             try
             {
                 ViewSchedule targetSchedule = null;
@@ -232,14 +235,12 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                 }
 
                 // Import logic
-                ImportScheduleFromExcel(targetSchedule, FileLocation);
-
-
-                TaskDialog.Show("Success", $"Import Succesfull!");
+                ImportScheduleFromExcel(targetSchedule, FileLocation);                
             }
             catch (System.Exception ex)
             {
-                TaskDialog.Show("Import Error", $"Failed to export schedule: {ex.Message}");
+                TaskDialog.Show("Import Error", $"Failed to import schedule: {ex.Message}");
+                return;
             }
         }
 
@@ -266,19 +267,30 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
         private void ImportScheduleFromExcel(ViewSchedule schedule, string filePath)
         {
+            //System.Diagnostics.Debugger.Launch();
             var excelReader = new ExcelReader(FileLocation);
-            var dataTable = excelReader.ReadExcelFile();
-            ScheduleDataFromElements scheduleDataFromElements = new ScheduleDataFromElements(schedule);
-            var dataTableData = scheduleDataFromElements.CreateScheduleDataTable(_document);
-            if (!DataTableComparer.AreSchemasEqual(dataTable, dataTableData))
+            var checkDataTable = excelReader.ReadExcelFile();
+            ScheduleDataFromElements scheduleDataFromElements = new ScheduleDataFromElements(schedule,_document);
+            var referenceDataTable = scheduleDataFromElements.CreateScheduleDataTable();
+            if (!DataTableComparer.AreSchemasEqual(checkDataTable, referenceDataTable))
             {
                 TaskDialog.Show("Import Error", "The schema of the Excel file does not match the schedule schema.");
                 return;
             }
-            var differences = DataTableComparer.GetDifferenceReport(dataTable, dataTableData);
+            var differences = DataTableComparer.GetDifferenceReport(checkDataTable, referenceDataTable,scheduleDataFromElements);
             var revitDBUpdater = new RevitDBUpdater(_document, _uiDocument);
-            revitDBUpdater.UpdateRevitDB(differences,scheduleDataFromElements.ScheduledElements);       
-        
+            try
+            {
+            revitDBUpdater.UpdateRevitDB(differences,scheduleDataFromElements);
+            }
+            catch(Exception)
+            {
+
+                TaskDialog.Show("Failed", $"Import Failed!");
+                return;
+            }
+            TaskDialog.Show("Success", $"Import Succesfull!");
+
         }
         #endregion
     }
