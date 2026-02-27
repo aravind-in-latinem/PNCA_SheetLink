@@ -52,8 +52,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                         // Temporary unique value
                         switch (row["UnitType"].ToString())
                         {
-                            case "String":
-                                
+                            case "String":                                
                                     string tempValue = $"__TMP__{Guid.NewGuid():N}";
                                     param.Set(tempValue);
                                     break;
@@ -90,7 +89,8 @@ namespace PNCA_SheetLink.SheetLink.Model
                         ?.ScheduledFields?
                         .FirstOrDefault(f => f.FieldName == paramName)?
                         .ParameterElement;
-                        
+                        if (param == null)
+                            continue;
                         switch (row["UnitType"].ToString())
                         {
                             case "String":
@@ -208,7 +208,8 @@ namespace PNCA_SheetLink.SheetLink.Model
         public bool IsUniqueConstrained(Parameter param)
         {
             return param.Id == new ElementId(BuiltInParameter.SHEET_NUMBER)
-                || param.Id == new ElementId(BuiltInParameter.VIEW_NAME);                ;
+                || param.Id == new ElementId(BuiltInParameter.VIEW_NAME)               
+                || param.Id == new ElementId(BuiltInParameter.VIEWPORT_DETAIL_NUMBER);              
         }
         private Parameter GetParameterFromSchedule(
     ScheduleDataFromElements scheduledElements,
