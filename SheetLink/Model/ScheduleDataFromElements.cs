@@ -212,6 +212,7 @@ namespace PNCA_SheetLink.SheetLink.Model
         /// <summary>
         /// Safely get a usable name (fallback to symbol or id if unnamed).
         /// </summary>
+        /// v2
         private static string GetElementName(Element e)
         {
             string name = e.Name;
