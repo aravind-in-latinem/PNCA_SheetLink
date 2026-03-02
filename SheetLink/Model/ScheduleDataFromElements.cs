@@ -146,7 +146,6 @@ namespace PNCA_SheetLink.SheetLink.Model
                             PopulateElementLookupForBooleanParameter(field);
                             field.UnitType = "Boolean";
                         }
-
                         scheduledFields.Add(field);
                     }
                 }
@@ -175,6 +174,14 @@ namespace PNCA_SheetLink.SheetLink.Model
             FilteredElementCollector collector = new FilteredElementCollector(doc);
             IList<Element> elements =
                 collector.OfCategoryId(category.Id).WhereElementIsNotElementType().ToElements();
+
+            var maxLookupCount = 60;
+
+            if (elements.Count > maxLookupCount)
+            {
+                // Too many elements to lookup, skip to avoid performance issues
+                return;
+            }
 
             Dictionary<string, int> values = new Dictionary<string, int>();
 
