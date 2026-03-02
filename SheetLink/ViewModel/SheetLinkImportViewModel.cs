@@ -43,6 +43,8 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             LoadAvailableSchedules();
             FilteredSchedules = new ObservableCollection<ScheduleViewItem>(AvailableSchedules);
             _yourWindowReference = yourWindowReference;
+            TaskDialog.Show("Warning", "For Parameters referencing an element in Revit Database, " +
+                "(i.e. a Level in Revit Model, Family & Type etc..) , Make sure you match the name of the referenced element exactly as you see in the Revit UI. ");
         }
         
         

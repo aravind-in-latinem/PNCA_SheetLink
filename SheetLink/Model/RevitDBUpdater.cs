@@ -17,16 +17,20 @@ namespace PNCA_SheetLink.SheetLink.Model
     {
         private Document _document;
         private UIDocument _uiDocument;
+        
+        
         public RevitDBUpdater(Document document, UIDocument uiDocument)
         {
             _document = document;
-            _uiDocument = uiDocument;
+            _uiDocument = uiDocument;            
         }
 
+        public List<LookupField> LookupFields { get; set; } = new List<LookupField>();
         public void UpdateRevitDB(DataTable dataTable, ScheduleDataFromElements scheduledElements)
         {
             List<Exception> errorCollection = new List<Exception>();
             var existingParamIdValuePair = new Dictionary<Parameter, string>();
+            var lookupFields = scheduledElements.GetScheduledFieldsLookupCollection();
             using (var t = new Transaction(_document, "Import Excel Data"))
             {
                 t.Start();
@@ -146,7 +150,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                             case "ElementId":
                                 if (param.StorageType == StorageType.ElementId)
                                 {
-                                    var selectedElemId = FindElementIdByFieldAndName(paramName, row["ValueInTable1"].ToString(), scheduledElements);
+                                    var selectedElemId = FindElementIdByFieldAndName(paramName, row["ValueInTable1"].ToString(), lookupFields);
                                     var success = param.Set(selectedElemId);
                                     _document.Regenerate();
                                 }
@@ -224,23 +228,19 @@ namespace PNCA_SheetLink.SheetLink.Model
         }
 
 
-        public static ElementId FindElementIdByFieldAndName(string fieldName, string elementName, ScheduleDataFromElements scheduleData)
+        public static ElementId FindElementIdByFieldAndName(string fieldName, string elementName, List<LookupField> lookupFields)
         {
-            if (scheduleData == null || string.IsNullOrWhiteSpace(fieldName) || string.IsNullOrWhiteSpace(elementName))
+            if (lookupFields == null || string.IsNullOrWhiteSpace(fieldName) || string.IsNullOrWhiteSpace(elementName))
                 return ElementId.InvalidElementId;
 
-            // Search efficiently using LINQ
-            foreach (var scheduledElement in scheduleData.ScheduledElements)
-            {
-                // Get the matching field
-                ScheduledField field =
-                    scheduledElement.ScheduledFields.FirstOrDefault(f => f.FieldName == fieldName);
+            // Get the matching field
+                var field = lookupFields.FirstOrDefault(f => f.FieldName == fieldName);
 
                 if (field == null)
-                    continue;
+                    return ElementId.InvalidElementId; 
 
                 if (field.ElementElementIdPairs == null || field.ElementElementIdPairs.Count == 0)
-                    continue;
+                    return ElementId.InvalidElementId; 
 
                 // Look for the element name inside ElementElementIdPairs
                 if (field.ElementElementIdPairs.ContainsKey(elementName))
@@ -248,7 +248,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                     int idValue = field.ElementElementIdPairs[elementName];
                     return new ElementId(idValue);
                 }
-            }
+            
 
             // If nothing is found
             throw new InvalidOperationException(

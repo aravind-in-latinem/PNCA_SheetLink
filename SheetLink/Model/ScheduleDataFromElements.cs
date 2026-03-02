@@ -72,14 +72,14 @@ namespace PNCA_SheetLink.SheetLink.Model
                 scheduledElement.RowElementId = elem.Id;
                 //handle instance parameters
                 var instanceParameterSet = elem.Parameters.OfType<Parameter>().ToList();
-                scheduledElement.ScheduledFields.AddRange(processParameters(elem, paramIdFieldIndexPair, "Instance", instanceParameterSet));
+                scheduledElement.ScheduledFields.AddRange(ProcessParametersForExport(elem, paramIdFieldIndexPair, "Instance", instanceParameterSet));
 
                 //handle type parameters
                 var elemSymbol = _document.GetElement(elem.GetTypeId());
                 if(elemSymbol!=null)
                 {
                     var typeParameterSet = elemSymbol.Parameters.OfType<Parameter>().ToList();
-                    scheduledElement.ScheduledFields.AddRange(processParameters(elem, paramIdFieldIndexPair, "Type", typeParameterSet));
+                    scheduledElement.ScheduledFields.AddRange(ProcessParametersForExport(elem, paramIdFieldIndexPair, "Type", typeParameterSet));
                 }
 
                 //handle room parameters
@@ -94,7 +94,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                     toRoomParameterSet = (elem as FamilyInstance).ToRoom?.Parameters.OfType<Parameter>().ToList() ?? new List<Parameter>();
                 }
                 var roomParameterSet = fromRoomParameterSet.Concat(toRoomParameterSet).ToList();
-                scheduledElement.ScheduledFields.AddRange(processParameters(elem, paramIdFieldIndexPair, "Room", roomParameterSet));
+                scheduledElement.ScheduledFields.AddRange(ProcessParametersForExport(elem, paramIdFieldIndexPair, "Room", roomParameterSet));
 
                 ScheduledElements.Add(scheduledElement);
 
@@ -107,7 +107,89 @@ namespace PNCA_SheetLink.SheetLink.Model
         }
 
 
-        public List<ScheduledField> processParameters(Element elem, Dictionary<ElementId, int> fieldIds, string parameterType, List<Parameter> parameterCollection)
+        public List<LookupField> GetScheduledFieldsLookupCollection()
+        {
+
+            //var dataTableBuilder = new DataTableCreator();
+            #region ViewCollector
+            var visibleElem = new FilteredElementCollector(_document, ScheduleView.Id).ToElements();
+            var scheduleFieldCount = ScheduleView.Definition.GetFieldCount();
+            var paramIdFieldIndexPair = new Dictionary<ElementId, int>();
+            var lookupList = new List<LookupField>();
+
+
+            #endregion
+            for (int i = 0; i < scheduleFieldCount; i++)
+            {
+                var fieldParamElemId = ScheduleView.Definition.GetField(i).ParameterId;
+                var fieldIndex = ScheduleView.Definition.GetField(i).FieldIndex;
+                // initializing parameter id and field index pair dictionary.
+                if (fieldParamElemId != new ElementId(Convert.ToInt64(-1)))
+                {
+                    if (!paramIdFieldIndexPair.ContainsKey(fieldParamElemId))
+                        paramIdFieldIndexPair.Add(fieldParamElemId, fieldIndex);
+                }
+                else if (ScheduleView.Definition.GetField(i).IsCombinedParameterField)
+                {
+                    var combinedParameters = ScheduleView.Definition.GetField(i).GetCombinedParameters().ToList().Select(a => a.ParamId);
+                    foreach (var paramId in combinedParameters)
+                    {
+                        if (!paramIdFieldIndexPair.ContainsKey(paramId))
+                            paramIdFieldIndexPair.Add(paramId, fieldIndex);
+                    }
+                }
+                if (ScheduleView.Definition.GetField(i).FieldType == ScheduleFieldType.FromRoom)
+                {
+                    fromRoomParamNames.Add(ScheduleView.Definition.GetField(i).GetName());
+                }
+                if (ScheduleView.Definition.GetField(i).FieldType == ScheduleFieldType.ToRoom)
+                {
+                    toRoomParamNames.Add(ScheduleView.Definition.GetField(i).GetName());
+                }
+            }
+            //iterating through visible elements and sending respective parameters to parameter processors.
+
+            var elem = visibleElem.FirstOrDefault();
+
+            var scheduledElement = new ScheduledElement();
+            scheduledElement.RowElementId = elem.Id;
+            //handle instance parameters
+            var instanceParameterSet = elem.Parameters.OfType<Parameter>().ToList();
+            lookupList.AddRange(ProcessParametersForImport(elem, paramIdFieldIndexPair, "Instance", instanceParameterSet));
+
+            //handle type parameters
+            var elemSymbol = _document.GetElement(elem.GetTypeId());
+            if (elemSymbol != null)
+            {
+                var typeParameterSet = elemSymbol.Parameters.OfType<Parameter>().ToList();
+                lookupList.AddRange(ProcessParametersForImport(elem, paramIdFieldIndexPair, "Type", typeParameterSet));
+            }
+
+            //handle room parameters
+            var fromRoomParameterSet = new List<Parameter>();
+            var toRoomParameterSet = new List<Parameter>();
+            if (fromRoomParamNames.Count != 0)
+            {
+                fromRoomParameterSet = (elem as FamilyInstance).FromRoom?.Parameters.OfType<Parameter>().ToList() ?? new List<Parameter>();
+            }
+            if (toRoomParamNames.Count != 0)
+            {
+                toRoomParameterSet = (elem as FamilyInstance).ToRoom?.Parameters.OfType<Parameter>().ToList() ?? new List<Parameter>();
+            }
+            var roomParameterSet = fromRoomParameterSet.Concat(toRoomParameterSet).ToList();
+            lookupList.AddRange(ProcessParametersForImport(elem, paramIdFieldIndexPair, "Room", roomParameterSet));
+
+            //ScheduledElements.Add(scheduledElement);
+
+            
+            //var dataTable = dataTableBuilder.PrepareTableData(ScheduledElements);
+
+            //TaskDialog.Show("Success", "Read Success");
+
+            return lookupList;
+        }
+
+        public List<ScheduledField> ProcessParametersForExport(Element elem, Dictionary<ElementId, int> fieldIds, string parameterType, List<Parameter> parameterCollection)
         {
             List<ScheduledField> scheduledFields = new List<ScheduledField>();
 
@@ -137,11 +219,58 @@ namespace PNCA_SheetLink.SheetLink.Model
                         field.UnitType = p.StorageType.ToString();
                         field.ForgeTypeId = p.Definition.GetDataType().TypeId;
                         field.FieldIndex = fieldIds[p.Id];
+                        //if (p.StorageType == StorageType.ElementId)
+                        //{
+                        //    PopulateElementLookupForElementIdParameter(_document, p.AsElementId(), field);
+                        //}
+                        //if(p.StorageType == StorageType.Integer && p.Definition.GetDataType() == SpecTypeId.Boolean.YesNo)
+                        //{
+                        //    PopulateElementLookupForBooleanParameter(field);
+                        //    field.UnitType = "Boolean";
+                        //}
+                        scheduledFields.Add(field);
+                    }
+                }
+            }
+
+            return scheduledFields;
+        }
+
+        public List<LookupField> ProcessParametersForImport(Element elem, Dictionary<ElementId, int> fieldIds, string parameterType, List<Parameter> parameterCollection)
+        {
+            List<LookupField> scheduledFields = new List<LookupField>();
+
+            foreach (var p in parameterCollection)
+            {
+                if (fieldIds.Keys.Contains(p.Id))
+                {
+                    LookupField field = new LookupField();
+                    if (p.Definition.Name == "Level")
+                        field.ParameterElement = elem.get_Parameter(BuiltInParameter.FAMILY_LEVEL_PARAM);
+                    else
+                        field.ParameterElement = p;
+                    if (!parameterType.Equals("Room"))
+                        field.FieldName = p.Definition.Name;
+                    if (parameterType.Equals("Room"))
+                    {
+                        if (fromRoomParamNames.Contains(String.Concat("From Room: ", p.Definition.Name)))
+                            field.FieldName = "From Room: " + p.Definition.Name;
+                        else if (toRoomParamNames.Contains(String.Concat("To Room: ", p.Definition.Name)))
+                            field.FieldName = "To Room: " + p.Definition.Name;
+                    }
+                    if (!String.IsNullOrEmpty(field.FieldName))
+                    {
+                        //field.FieldValue = p.AsString() ?? p.AsValueString() ?? string.Empty;
+                        field.SelectedElementId = elem.Id;
+                        field.ParameterType = parameterType;
+                        field.UnitType = p.StorageType.ToString();
+                        field.ForgeTypeId = p.Definition.GetDataType().TypeId;
+                        field.FieldIndex = fieldIds[p.Id];
                         if (p.StorageType == StorageType.ElementId)
                         {
                             PopulateElementLookupForElementIdParameter(_document, p.AsElementId(), field);
                         }
-                        if(p.StorageType == StorageType.Integer && p.Definition.GetDataType() == SpecTypeId.Boolean.YesNo)
+                        if (p.StorageType == StorageType.Integer && p.Definition.GetDataType() == SpecTypeId.Boolean.YesNo)
                         {
                             PopulateElementLookupForBooleanParameter(field);
                             field.UnitType = "Boolean";
@@ -153,10 +282,14 @@ namespace PNCA_SheetLink.SheetLink.Model
 
             return scheduledFields;
         }
+
+
+
+
         public static void PopulateElementLookupForElementIdParameter(
         Document doc,
         ElementId referencedId,
-        ScheduledField scheduledField)
+        LookupField scheduledField)
         {
             if (doc == null || scheduledField == null || referencedId == null || referencedId == ElementId.InvalidElementId)
                 return;
@@ -175,13 +308,13 @@ namespace PNCA_SheetLink.SheetLink.Model
             IList<Element> elements =
                 collector.OfCategoryId(category.Id).WhereElementIsNotElementType().ToElements();
 
-            var maxLookupCount = 60;
+            ////var maxLookupCount = 60;
 
-            if (elements.Count > maxLookupCount)
-            {
-                // Too many elements to lookup, skip to avoid performance issues
-                return;
-            }
+            //if (elements.Count > maxLookupCount)
+            //{
+            //    // Too many elements to lookup, skip to avoid performance issues
+            //    return;
+            //}
 
             Dictionary<string, int> values = new Dictionary<string, int>();
 
@@ -197,7 +330,7 @@ namespace PNCA_SheetLink.SheetLink.Model
 
             scheduledField.ElementElementIdPairs = values;
         }
-        public static void PopulateElementLookupForBooleanParameter(ScheduledField scheduledField)
+        public static void PopulateElementLookupForBooleanParameter(LookupField scheduledField)
         {
             if (scheduledField == null)
                 return;
@@ -212,7 +345,7 @@ namespace PNCA_SheetLink.SheetLink.Model
         /// <summary>
         /// Safely get a usable name (fallback to symbol or id if unnamed).
         /// </summary>
-        /// v2
+        
         private static string GetElementName(Element e)
         {
             string name = e.Name;

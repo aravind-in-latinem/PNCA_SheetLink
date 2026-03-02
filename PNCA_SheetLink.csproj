@@ -160,6 +160,8 @@
     <Compile Include="SheetLink\Model\DataTableComparer.cs" />
     <Compile Include="SheetLink\Model\ExcelReader.cs" />
     <Compile Include="SheetLink\Model\ExcelWriter.cs" />
+    <Compile Include="SheetLink\Model\LookupField.cs" />
+    <Compile Include="SheetLink\Model\RevitFieldsInformationStorage.cs" />
     <Compile Include="SheetLink\Model\RevitDBUpdater.cs" />
     <Compile Include="SheetLink\RevitEntryPoint\ScheduleWithFormattingExporter.cs" />
     <Compile Include="SheetLink\Model\ScheduleWithFormatting.cs" />
