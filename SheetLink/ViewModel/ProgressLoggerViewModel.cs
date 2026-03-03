@@ -23,6 +23,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             }
             ExceptionMessageCollection.AppendLine("Stack Trace: " + ex.StackTrace);
             ExceptionMessageCollection.AppendLine("--------------------------------------------------");
+            
             UpdateUIText();
         }
 

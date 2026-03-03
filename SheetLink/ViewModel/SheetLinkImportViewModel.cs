@@ -18,7 +18,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private readonly Document _document;
         private readonly UIDocument _uiDocument;
         private readonly System.Windows.Window _yourWindowReference;
-        private readonly ILogger _logger;
+        private readonly ILogger _progressLogger;
 
         // Properties for data binding
         private bool _isActiveViewSelected;
@@ -30,12 +30,12 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private ObservableCollection<ScheduleViewItem> _filteredSchedules;
         private bool _shouldOpenDropDown;
 
-        public SheetLinkImportViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference, ILogger logger)
+        public SheetLinkImportViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference, ILogger progressLogger)
         {
-            _logger = logger;
+            _progressLogger = progressLogger;
             _document = document;
             _uiDocument = uiDocument;
-            _logger = logger;
+            _progressLogger = progressLogger;
 
             // Initialize commands
             ImportCommand = new RelayCommand(ExecuteImport, CanExecuteImport);
@@ -276,7 +276,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             //System.Diagnostics.Debugger.Launch();
             var excelReader = new ExcelReader(FileLocation);
             var checkDataTable = excelReader.ReadExcelFile();
-            ScheduleDataFromElementsExtractor scheduleDataFromElementsExtractor = new ScheduleDataFromElementsExtractor(schedule,_document);
+            ScheduleDataFromElementsExtractor scheduleDataFromElementsExtractor = new ScheduleDataFromElementsExtractor(schedule,_document,_progressLogger);
             var referenceDataTable = scheduleDataFromElementsExtractor.CreateScheduleDataTable();
             if (!DataTableComparer.AreSchemasEqual(checkDataTable, referenceDataTable))
             {

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Autodesk.Revit.UI.Mechanical;
+using PNCA_SheetLink.SheetLink.Services;
 using PNCA_SheetLink.SheetLink.ViewModel;
 
 namespace PNCA_SheetLink.SheetLink.View
@@ -22,10 +23,10 @@ namespace PNCA_SheetLink.SheetLink.View
     public partial class ProgressLoggerView : Window
     {
         private string uiData = string.Empty;
-        public ProgressLoggerView()
+        public ProgressLoggerView(ILogger progressLoggerViewModel)
         {
             InitializeComponent();
-            this.DataContext = new ProgressLoggerViewModel();
+            this.DataContext = progressLoggerViewModel;
             (DataContext as ProgressLoggerViewModel).ProgressUpdated += ProgressLoggerViewModel_updateProgress;
         }
 

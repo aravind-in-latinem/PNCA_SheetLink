@@ -264,8 +264,9 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
         private void ExportScheduleToExcel(ViewSchedule schedule, string filePath)
         {
-            var progressLoggerView = new ProgressLoggerView();
+            var progressLoggerView = new ProgressLoggerView(_progressLogger);
             progressLoggerView.Show();
+            
             ScheduleDataFromElementsExtractor scheduleDataFromElementsExtractor = new ScheduleDataFromElementsExtractor(schedule, _document, _progressLogger);
             var dataTableData = scheduleDataFromElementsExtractor.CreateScheduleDataTable();
             _progressLogger.LogTaskCompleted("Schedule data extracted from Revit");
