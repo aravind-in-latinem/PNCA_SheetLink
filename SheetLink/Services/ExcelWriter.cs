@@ -3,8 +3,7 @@ using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 
-
-namespace PNCA_SheetLink.SheetLink.Model
+namespace PNCA_SheetLink.SheetLink.Services
 {
     public class ExcelWriter : IDisposable
     {

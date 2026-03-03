@@ -3,69 +3,43 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PNCA_SheetLink.SheetLink.View"        
+        xmlns:local="clr-namespace:PNCA_SheetLink.SheetLink.View"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        Title="SheetLink - Export Schedule" Height="250" Width="566">
-
+        Title="SheetLink - Export Schedule"
+        Height="250"
+        Width="566">
 
     <!-- Outer border to simulate window frame -->
-    <Border Background="#1E1E1E" BorderBrush="#3A3A3A" BorderThickness="1" VerticalAlignment="Top" Padding="0,0,0,0">
+    <Border Background="#1E1E1E"
+            BorderBrush="#3A3A3A"
+            BorderThickness="1"
+            VerticalAlignment="Top"
+            Padding="0,0,0,0">
 
-        <DockPanel LastChildFill="True">
-            <!-- Custom title bar -->
-            <Border Background="#2B2B2B" Height="32" DockPanel.Dock="Top" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
-                <DockPanel>
-                    <!-- App Icon -->
-                    <Image Source="pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/SchedulewithFormatting-Light.ico"
-                           Width="20" Height="20"
-                           Margin="10,0,6,0"
-                           VerticalAlignment="Center"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"></RowDefinition>
+                <RowDefinition Height="218"></RowDefinition>
+            </Grid.RowDefinitions>
+            <local:PNCATitleBar Title="ScheduleSyncer : Export with Revit Schedule Formatting Settings Retained"
+                                TitleIcon="pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/SchedulewithFormatting-Light.ico" />
 
-                    <!-- Title text -->
-                    <TextBlock Text="ScheduleSyncer - Export with Revit Schedule Formatting Settings Retained"
-                               Foreground="White"
-                               FontWeight="SemiBold"
-                               VerticalAlignment="Center"/>
-
-                    <!-- Control buttons (right side) -->
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Width="65" HorizontalAlignment="Right">
-                        <Button Content="🗕"
-                                Width="32" Height="32"
-                                Background="Transparent"
-                                Foreground="White"
-                                BorderThickness="0"
-                                Click="Minimize_Click"
-                                FontSize="12" HorizontalAlignment="Right"/>
-                        <Button Content="🗙"
-                                Width="32" Height="32"
-                                Background="Transparent"
-                                Foreground="White"
-                                BorderThickness="0"
-                                Click="Close_Click"
-                                FontSize="12"
-                                Padding="0" HorizontalAlignment="Right"
-                                />
-                    </StackPanel>
-                </DockPanel>
-            </Border>
-            <Grid>
-                <local:SheetLinkUserControl
+            <local:SheetLinkUserControl Grid.Row="1"
                 SaveLocation="{Binding SaveLocation, Mode=TwoWay}"
-                FilteredSchedules="{Binding FilteredSchedules}"
-                SelectedSchedule="{Binding SelectedSchedule, Mode=TwoWay}"
-                ScheduleSearchText="{Binding ScheduleSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                IsActiveViewSelected="{Binding IsActiveViewSelected, Mode=TwoWay}"
-                IsSelectScheduleSelected="{Binding IsSelectScheduleSelected, Mode=TwoWay}"                    
-                ShouldOpenDropDown="{Binding ShouldOpenDropDown, Mode=TwoWay}"
-                IOButtonText="Export"
-                ExportCommand="{Binding ExportCommand}"                    
-                CancelCommand="{Binding CancelCommand}"
-                BrowseSaveLocationCommand="{Binding BrowseSaveLocationCommand}"/>
-            </Grid>
+                                        FilteredSchedules="{Binding FilteredSchedules}"
+                                        SelectedSchedule="{Binding SelectedSchedule, Mode=TwoWay}"
+                                        ScheduleSearchText="{Binding ScheduleSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        IsActiveViewSelected="{Binding IsActiveViewSelected, Mode=TwoWay}"
+                                        IsSelectScheduleSelected="{Binding IsSelectScheduleSelected, Mode=TwoWay}"
+                                        ShouldOpenDropDown="{Binding ShouldOpenDropDown, Mode=TwoWay}"
+                                        IOButtonText="Export"
+                                        ExportCommand="{Binding ExportCommand}"
+                                        CancelCommand="{Binding CancelCommand}"
+                                        BrowseSaveLocationCommand="{Binding BrowseSaveLocationCommand}" />
+        </Grid>
 
-        </DockPanel>
     </Border>
 
 </Window>

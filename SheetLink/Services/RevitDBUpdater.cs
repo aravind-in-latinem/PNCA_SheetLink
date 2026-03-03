@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using PNCA_SheetLink.SheetLink.Model;
 
-namespace PNCA_SheetLink.SheetLink.Model
+namespace PNCA_SheetLink.SheetLink.Services
 {
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
@@ -26,11 +26,11 @@ namespace PNCA_SheetLink.SheetLink.Model
         }
 
         public List<LookupField> LookupFields { get; set; } = new List<LookupField>();
-        public void UpdateRevitDB(DataTable dataTable, ScheduleDataFromElements scheduledElements)
+        public void UpdateRevitDB(DataTable dataTable, ScheduleDataFromElementsExtractor scheduledElementsExtractor)
         {
             List<Exception> errorCollection = new List<Exception>();
             var existingParamIdValuePair = new Dictionary<Parameter, string>();
-            var lookupFields = scheduledElements.GetScheduledFieldsLookupCollection();
+            var lookupFields = scheduledElementsExtractor.GetScheduledFieldsLookupCollection();
             using (var t = new Transaction(_document, "Import Excel Data"))
             {
                 t.Start();
@@ -42,7 +42,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                         var paramName = row["ParameterName"].ToString();
 
                         var param = GetParameterFromSchedule(
-                            scheduledElements, elemId, paramName);
+                            scheduledElementsExtractor, elemId, paramName);
 
                         if (param == null)
                             continue;
@@ -88,7 +88,7 @@ namespace PNCA_SheetLink.SheetLink.Model
 
                         var elemId = new ElementId(Convert.ToInt64(row["ElementId"]));
                         var paramName = row["ParameterName"].ToString();
-                        var param = scheduledElements.ScheduledElements
+                        var param = scheduledElementsExtractor.ScheduledElements
                         .FirstOrDefault(a => a.RowElementId?.Value == Convert.ToInt64(row["ElementId"]))
                         ?.ScheduledFields?
                         .FirstOrDefault(f => f.FieldName == paramName)?
@@ -116,7 +116,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                                 if (param.StorageType != StorageType.Double)
                                     break;
 
-                                var scheduledField = scheduledElements.ScheduledElements
+                                var scheduledField = scheduledElementsExtractor.ScheduledElements
                                     .FirstOrDefault(a => a.RowElementId?.Value == Convert.ToInt64(row["ElementId"]))
                                     ?.ScheduledFields?
                                     .FirstOrDefault(f => f.FieldName == paramName);
@@ -216,11 +216,11 @@ namespace PNCA_SheetLink.SheetLink.Model
                 || param.Id == new ElementId(BuiltInParameter.VIEWPORT_DETAIL_NUMBER);              
         }
         private Parameter GetParameterFromSchedule(
-    ScheduleDataFromElements scheduledElements,
+    ScheduleDataFromElementsExtractor scheduledElementsExtractor,
     ElementId elemId,
     string paramName)
         {
-            return scheduledElements.ScheduledElements
+            return scheduledElementsExtractor.ScheduledElements
                 .FirstOrDefault(e => e.RowElementId?.Value == elemId.Value)?
                 .ScheduledFields?
                 .FirstOrDefault(f => f.FieldName == paramName)?

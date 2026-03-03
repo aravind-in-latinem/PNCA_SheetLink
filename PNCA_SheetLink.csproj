@@ -157,16 +157,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SheetLink\Model\DataTableComparer.cs" />
-    <Compile Include="SheetLink\Model\ExcelReader.cs" />
-    <Compile Include="SheetLink\Model\ExcelWriter.cs" />
+    <Compile Include="SheetLink\Services\DataTableComparer.cs" />
+    <Compile Include="SheetLink\Services\ExcelReader.cs" />
+    <Compile Include="SheetLink\Services\ExcelWriter.cs" />
+    <Compile Include="SheetLink\ViewModel\ProgressLoggerViewModel.cs" />
+    <Compile Include="SheetLink\Services\IProgressLogger.cs" />
     <Compile Include="SheetLink\Model\LookupField.cs" />
-    <Compile Include="SheetLink\Model\RevitFieldsInformationStorage.cs" />
-    <Compile Include="SheetLink\Model\RevitDBUpdater.cs" />
+    <Compile Include="SheetLink\Services\RevitFieldsInformationStorage.cs" />
+    <Compile Include="SheetLink\Services\RevitDBUpdater.cs" />
     <Compile Include="SheetLink\RevitEntryPoint\ScheduleWithFormattingExporter.cs" />
-    <Compile Include="SheetLink\Model\ScheduleWithFormatting.cs" />
-    <Compile Include="SheetLink\Model\ScheduleDataFromElements.cs" />
-    <Compile Include="SheetLink\Model\DataTableCreator.cs" />
+    <Compile Include="SheetLink\Services\ScheduleWithFormattingExtractor.cs" />
+    <Compile Include="SheetLink\Services\ScheduleDataFromElementsExtractor.cs" />
+    <Compile Include="SheetLink\Services\DataTableCreator.cs" />
     <Compile Include="SheetLink\Model\ScheduledElement.cs" />
     <Compile Include="SheetLink\Model\ScheduledField.cs" />
     <Compile Include="SheetLink\RevitEntryPoint\ImportDataFromExcel.cs" />
@@ -177,6 +179,12 @@
     <Compile Include="SheetLink\ViewModel\SheetLinkWithFormattingViewModel.cs" />
     <Compile Include="SheetLink\ViewModel\ViewModelBase.cs" />
     <Compile Include="SheetLink\ViewModel\SheetLinkExportViewModel.cs" />
+    <Compile Include="SheetLink\View\PNCATitleBar.xaml.cs">
+      <DependentUpon>PNCATitleBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SheetLink\View\ProgressLoggerView.xaml.cs">
+      <DependentUpon>ProgressLoggerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SheetLink\View\SheetLinkImport.xaml.cs">
       <DependentUpon>SheetLinkImport.xaml</DependentUpon>
     </Compile>
@@ -216,6 +224,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="SheetLink\View\PNCATitleBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SheetLink\View\ProgressLoggerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SheetLink\View\SheetLinkImport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -259,5 +275,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,6 +9,7 @@ using PNCA_SheetLink.SheetLink.Model;
 using System.Windows;
 using System.Text;
 using System;
+using PNCA_SheetLink.SheetLink.Services;
 
 namespace PNCA_SheetLink.SheetLink.ViewModel
 {
@@ -17,6 +18,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private readonly Document _document;
         private readonly UIDocument _uiDocument;
         private readonly System.Windows.Window _yourWindowReference;
+        private readonly IProgressLogger _progressLogger;
 
         // Properties for data binding
         private bool _isActiveViewSelected;
@@ -28,10 +30,12 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private ObservableCollection<ScheduleViewItem> _filteredSchedules;
         private bool _shouldOpenDropDown;
 
-        public SheetLinkImportViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference)
+        public SheetLinkImportViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference, IProgressLogger progressLogger)
         {
+            _progressLogger = progressLogger;
             _document = document;
             _uiDocument = uiDocument;
+            _progressLogger = progressLogger;
 
             // Initialize commands
             ImportCommand = new RelayCommand(ExecuteImport, CanExecuteImport);
@@ -272,18 +276,18 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             //System.Diagnostics.Debugger.Launch();
             var excelReader = new ExcelReader(FileLocation);
             var checkDataTable = excelReader.ReadExcelFile();
-            ScheduleDataFromElements scheduleDataFromElements = new ScheduleDataFromElements(schedule,_document);
-            var referenceDataTable = scheduleDataFromElements.CreateScheduleDataTable();
+            ScheduleDataFromElementsExtractor scheduleDataFromElementsExtractor = new ScheduleDataFromElementsExtractor(schedule,_document);
+            var referenceDataTable = scheduleDataFromElementsExtractor.CreateScheduleDataTable();
             if (!DataTableComparer.AreSchemasEqual(checkDataTable, referenceDataTable))
             {
                 TaskDialog.Show("Import Error", "The schema of the Excel file does not match the schedule schema.");
                 return;
             }
-            var differences = DataTableComparer.GetDifferenceReport(checkDataTable, referenceDataTable,scheduleDataFromElements);
+            var differences = DataTableComparer.GetDifferenceReport(checkDataTable, referenceDataTable,scheduleDataFromElementsExtractor);
             var revitDBUpdater = new RevitDBUpdater(_document, _uiDocument);
             try
             {
-            revitDBUpdater.UpdateRevitDB(differences,scheduleDataFromElements);
+            revitDBUpdater.UpdateRevitDB(differences,scheduleDataFromElementsExtractor);
             }
             catch(Exception)
             {

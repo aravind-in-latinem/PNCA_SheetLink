@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using PNCA_SheetLink.SheetLink.Model;
 
-namespace PNCA_SheetLink.SheetLink.Model
+namespace PNCA_SheetLink.SheetLink.Services
 {
     public class DataTableComparer
     {
-        public static DataTable GetDifferenceReport(DataTable checkTable, DataTable referenceTable,ScheduleDataFromElements sourceData)
+        public static DataTable GetDifferenceReport(DataTable checkTable, DataTable referenceTable,ScheduleDataFromElementsExtractor sourceData)
         {
             // Prepare the result table
             DataTable result = new DataTable("Differences");
@@ -75,7 +76,7 @@ namespace PNCA_SheetLink.SheetLink.Model
             // 4. If everything matches
             return true;
         }
-        public static string GetUnitTypeForField(ScheduleDataFromElements scheduleData, string fieldName)
+        public static string GetUnitTypeForField(ScheduleDataFromElementsExtractor scheduleData, string fieldName)
         {
             if (scheduleData == null || string.IsNullOrWhiteSpace(fieldName))
                 return string.Empty;

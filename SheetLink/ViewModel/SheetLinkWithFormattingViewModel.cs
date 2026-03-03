@@ -7,6 +7,7 @@ using Microsoft.Win32;
 //using Autodesk.Revit.Creation;
 using PNCA_SheetLink.SheetLink.Model;
 using PNCA_SheetLink.SheetLink.RevitEntryPoint;
+using PNCA_SheetLink.SheetLink.Services;
 
 namespace PNCA_SheetLink.SheetLink.ViewModel
 {
@@ -15,6 +16,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private readonly Document _document;
         private readonly UIDocument _uiDocument;
         private readonly System.Windows.Window _yourWindowReference;
+        private readonly IProgressLogger _progressLogger;
 
         // Properties for data binding
         private bool _isActiveViewSelected;
@@ -26,10 +28,11 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private ObservableCollection<ScheduleViewItem> _filteredSchedules;
         private bool _shouldOpenDropDown;
 
-        public SheetLinkWithFormattingViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference)
+        public SheetLinkWithFormattingViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference, IProgressLogger progressLogger)
         {
             _document = document;
             _uiDocument = uiDocument;
+            _progressLogger = progressLogger;
 
             // Initialize commands
             ExportCommand = new RelayCommand(ExecuteExport, CanExecuteExport);
@@ -265,7 +268,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
         private void ExportScheduleToExcel(ViewSchedule schedule, string filePath)
         {
-            var schedulewithFormatting = new ScheduleWithFormatting();
+            var schedulewithFormatting = new ScheduleWithFormattingExtractor();
             var dataTable = schedulewithFormatting.GetDataTableWithRevitFormatting(_document, schedule);
             ExcelWriter writer = new ExcelWriter(filePath);
             writer.CreateExcelFile(dataTable);

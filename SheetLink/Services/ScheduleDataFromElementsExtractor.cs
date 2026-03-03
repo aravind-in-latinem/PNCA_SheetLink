@@ -4,12 +4,13 @@ using System.Data;
 using System.Linq;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
+using PNCA_SheetLink.SheetLink.Model;
 
-namespace PNCA_SheetLink.SheetLink.Model
+namespace PNCA_SheetLink.SheetLink.Services
 {
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
-    public class ScheduleDataFromElements
+    public class ScheduleDataFromElementsExtractor
 
     {
         public ViewSchedule ScheduleView { get; set; }
@@ -20,7 +21,7 @@ namespace PNCA_SheetLink.SheetLink.Model
         List<string> fromRoomParamNames = new List<string>();
         List<string> toRoomParamNames = new List<string>();
 
-        public ScheduleDataFromElements(ViewSchedule scheduleView, Document document)
+        public ScheduleDataFromElementsExtractor(ViewSchedule scheduleView, Document document)
         {
             _document = document;
             ScheduleView = scheduleView;

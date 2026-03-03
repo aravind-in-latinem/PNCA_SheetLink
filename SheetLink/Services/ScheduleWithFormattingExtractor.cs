@@ -5,11 +5,11 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
+namespace PNCA_SheetLink.SheetLink.Services
 {
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
-    public class ScheduleWithFormatting
+    public class ScheduleWithFormattingExtractor
 
     {
         public DataTable GetDataTableWithRevitFormatting(Document document, ViewSchedule schedule)
