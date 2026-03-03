@@ -18,13 +18,16 @@ namespace PNCA_SheetLink.SheetLink.Services
 
         public Document _document;
 
+        private ILogger _progressLogger;
+
         List<string> fromRoomParamNames = new List<string>();
         List<string> toRoomParamNames = new List<string>();
 
-        public ScheduleDataFromElementsExtractor(ViewSchedule scheduleView, Document document)
+        public ScheduleDataFromElementsExtractor(ViewSchedule scheduleView, Document document, ILogger progressLogger)
         {
             _document = document;
             ScheduleView = scheduleView;
+            _progressLogger = progressLogger;
         }
         public DataTable CreateScheduleDataTable()
         {
@@ -308,7 +311,7 @@ namespace PNCA_SheetLink.SheetLink.Services
             //    return;
             //}
 
-            Dictionary<string, int> values = new Dictionary<string, int>();
+            Dictionary<string, long> values = new Dictionary<string, long>();
 
             foreach (var element in elements)
             {
@@ -316,7 +319,7 @@ namespace PNCA_SheetLink.SheetLink.Services
 
                 if (!values.ContainsKey(name))
                 {
-                    values.Add(name, element.Id.IntegerValue);
+                    values.Add(name, element.Id.Value);
                 }
             }
 
@@ -326,7 +329,7 @@ namespace PNCA_SheetLink.SheetLink.Services
         {
             if (scheduledField == null)
                 return;
-            Dictionary<string, int> values = new Dictionary<string, int>
+            Dictionary<string, long> values = new Dictionary<string,long>
             {
                 { "Yes", 1 },
                 { "No", 0 }

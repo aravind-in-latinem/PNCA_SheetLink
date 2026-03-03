@@ -161,7 +161,7 @@
     <Compile Include="SheetLink\Services\ExcelReader.cs" />
     <Compile Include="SheetLink\Services\ExcelWriter.cs" />
     <Compile Include="SheetLink\ViewModel\ProgressLoggerViewModel.cs" />
-    <Compile Include="SheetLink\Services\IProgressLogger.cs" />
+    <Compile Include="SheetLink\Services\ILogger.cs" />
     <Compile Include="SheetLink\Model\LookupField.cs" />
     <Compile Include="SheetLink\Services\RevitFieldsInformationStorage.cs" />
     <Compile Include="SheetLink\Services\RevitDBUpdater.cs" />

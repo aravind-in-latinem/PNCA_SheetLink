@@ -8,6 +8,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using PNCA_SheetLink.SheetLink.Services;
 using PNCA_SheetLink.SheetLink.View;
+using PNCA_SheetLink.SheetLink.ViewModel;
 
 namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
 {
@@ -16,7 +17,12 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
     public class ScheduleWithFormattingExporter : IExternalCommand
 
     {
-        private readonly IProgressLogger _progressLogger;
+        private readonly ILogger _logger;
+
+        public ScheduleWithFormattingExporter()
+        {
+            _logger = new ProgressLoggerViewModel();
+        }
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             var uiApplication = commandData.Application;
@@ -25,7 +31,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
             var document = uiDocument.Document;
 
 
-            var sheetLinkWithFormatting = new SheetLinkWithFormatting(document, uiDocument, _progressLogger);
+            var sheetLinkWithFormatting = new SheetLinkWithFormatting(document, uiDocument, _logger);
 
             // Set owner to Revit window so it stays on top and modal
             System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(sheetLinkWithFormatting);

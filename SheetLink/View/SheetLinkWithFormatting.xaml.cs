@@ -10,7 +10,7 @@ namespace PNCA_SheetLink.SheetLink.View
 {
     public partial class SheetLinkWithFormatting : Window
     {
-        public SheetLinkWithFormatting(Document document, UIDocument uiDocument, IProgressLogger progressLogger)
+        public SheetLinkWithFormatting(Document document, UIDocument uiDocument, ILogger progressLogger)
         {
             InitializeComponent();
             this.DataContext = new SheetLinkWithFormattingViewModel(document, uiDocument,this, progressLogger);

@@ -9,6 +9,7 @@ using Autodesk.Revit.UI;
 using PNCA_SheetLink.SheetLink.Model;
 using PNCA_SheetLink.SheetLink.Services;
 using PNCA_SheetLink.SheetLink.View;
+using PNCA_SheetLink.SheetLink.ViewModel;
 
 namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
 {
@@ -17,7 +18,12 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
     public class ScheduleFromElementsExtractor : IExternalCommand
 
     {
-        private readonly IProgressLogger _progressLogger;
+        private static ILogger _logger;
+
+        public ScheduleFromElementsExtractor()
+        {
+            _logger = new ProgressLoggerViewModel();
+        }
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             try
@@ -31,7 +37,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
                          
 
             // Create and show your window
-            var mainWindow = new SheetLinkExport(document, uiDocument, _progressLogger);
+            var mainWindow = new SheetLinkExport(document, uiDocument, _logger);
 
             // Set owner to Revit window so it stays on top and modal
             System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(mainWindow);

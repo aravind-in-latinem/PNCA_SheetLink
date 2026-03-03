@@ -4,7 +4,7 @@ using PNCA_SheetLink.SheetLink.Services;
 
 namespace PNCA_SheetLink.SheetLink.ViewModel
 {
-    public class ProgressLoggerViewModel : IProgressLogger
+    public class ProgressLoggerViewModel : ILogger
     {
         public StringBuilder ExceptionMessageCollection { get; set; }
         

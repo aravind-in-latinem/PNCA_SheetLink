@@ -24,7 +24,6 @@
                      VerticalScrollBarVisibility="Auto"
                      HorizontalScrollBarVisibility="Auto"
                      TextWrapping="Wrap" />
-
         </Grid>
 
     </Grid>

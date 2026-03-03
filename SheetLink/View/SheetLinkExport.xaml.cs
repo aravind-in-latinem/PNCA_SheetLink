@@ -10,7 +10,7 @@ namespace PNCA_SheetLink.SheetLink.View
 {
     public partial class SheetLinkExport : Window
     {
-        public SheetLinkExport(Document document, UIDocument uiDocument,IProgressLogger progressLogger)
+        public SheetLinkExport(Document document, UIDocument uiDocument,ILogger progressLogger)
         {
             InitializeComponent();
             this.DataContext = new SheetLinkExportViewModel(document, uiDocument,this, progressLogger);

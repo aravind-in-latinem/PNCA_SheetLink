@@ -18,7 +18,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private readonly Document _document;
         private readonly UIDocument _uiDocument;
         private readonly System.Windows.Window _yourWindowReference;
-        private readonly IProgressLogger _progressLogger;
+        private readonly ILogger _logger;
 
         // Properties for data binding
         private bool _isActiveViewSelected;
@@ -30,12 +30,12 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private ObservableCollection<ScheduleViewItem> _filteredSchedules;
         private bool _shouldOpenDropDown;
 
-        public SheetLinkImportViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference, IProgressLogger progressLogger)
+        public SheetLinkImportViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference, ILogger logger)
         {
-            _progressLogger = progressLogger;
+            _logger = logger;
             _document = document;
             _uiDocument = uiDocument;
-            _progressLogger = progressLogger;
+            _logger = logger;
 
             // Initialize commands
             ImportCommand = new RelayCommand(ExecuteImport, CanExecuteImport);

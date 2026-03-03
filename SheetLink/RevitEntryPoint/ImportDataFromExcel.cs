@@ -18,10 +18,10 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
     public class ImportDataFromExcel : IExternalCommand
 
     {
-        private readonly IProgressLogger _progressLogger;
+        private static ILogger _logger;
         public ImportDataFromExcel()
         {
-            _progressLogger = new ProgressLoggerViewModel();
+            _logger = new ProgressLoggerViewModel();
         }
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -34,7 +34,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
             var document = uiDocument.Document;
             
 
-                var importWindow = new SheetLinkImport(document, uiDocument, _progressLogger);
+            var importWindow = new SheetLinkImport(document, uiDocument, _logger);
 
             // Set owner to Revit window so it stays on top and modal
             System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(importWindow);
