@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.Win32;
 //using Autodesk.Revit.Creation;
 using PNCA_SheetLink.SheetLink.Model;
+using PNCA_SheetLink.SheetLink.Services;
 
 namespace PNCA_SheetLink.SheetLink.ViewModel
 {
@@ -14,7 +15,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private readonly Document _document;
         private readonly UIDocument _uiDocument;
         private readonly System.Windows.Window _yourWindowReference;
-
+        private readonly IProgressLogger _progressLogger;
         // Properties for data binding
         private bool _isActiveViewSelected;
         private bool _isSelectScheduleSelected;
@@ -24,11 +25,11 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private string _scheduleSearchText;
         private ObservableCollection<ScheduleViewItem> _filteredSchedules;
         private bool _shouldOpenDropDown;
-        public SheetLinkExportViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference)
+        public SheetLinkExportViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference, IProgressLogger progressLogger)
         {
             _document = document;
             _uiDocument = uiDocument;
-
+            _progressLogger = progressLogger;
             // Initialize commands
             ExportCommand = new RelayCommand(ExecuteExport, CanExecuteExport);
             CancelCommand = new RelayCommand(ExecuteCancel);
@@ -40,8 +41,6 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             FilteredSchedules = new ObservableCollection<ScheduleViewItem>(AvailableSchedules);
             _yourWindowReference = yourWindowReference;
         }
-        
-        
 
         #region Properties for Binding
 
@@ -264,8 +263,9 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
         private void ExportScheduleToExcel(ViewSchedule schedule, string filePath)
         {
-            ScheduleDataFromElements scheduleDataFromElements = new ScheduleDataFromElements(schedule, _document);
-            var dataTableData = scheduleDataFromElements.CreateScheduleDataTable();
+            ScheduleDataFromElementsExtractor scheduleDataFromElementsExtractor = new ScheduleDataFromElementsExtractor(schedule, _document);
+            var dataTableData = scheduleDataFromElementsExtractor.CreateScheduleDataTable();
+            _progressLogger.LogTaskCompleted("Schedule data extracted from Revit");
             ExcelWriter writer = new ExcelWriter(filePath);
             writer.CreateExcelFile(dataTableData);
         }

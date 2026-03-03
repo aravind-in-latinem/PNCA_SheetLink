@@ -3,8 +3,7 @@ using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 
-
-namespace PNCA_SheetLink.SheetLink.Model
+namespace PNCA_SheetLink.SheetLink.Services
 {
     public class ExcelWriter : IDisposable
     {
@@ -30,6 +29,8 @@ namespace PNCA_SheetLink.SheetLink.Model
                 var tableWIdth = dataTable.Columns.Count;
                 var worksheet = wb.Worksheet("Sheet1");
                 worksheet.Columns(1, tableWIdth).AdjustToContents();
+                if (worksheet.Column(1).Cell(1).Value.Equals("ElementId"))
+                    worksheet.Column(1).Hide();
                 wb.SaveAs(_filePath);
             }
         }

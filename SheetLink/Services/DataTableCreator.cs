@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using PNCA_SheetLink.SheetLink.Model;
 
-namespace PNCA_SheetLink.SheetLink.Model
+namespace PNCA_SheetLink.SheetLink.Services
 {
     public class DataTableCreator
 

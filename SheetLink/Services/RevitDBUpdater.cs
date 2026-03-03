@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using PNCA_SheetLink.SheetLink.Model;
 
-namespace PNCA_SheetLink.SheetLink.Model
+namespace PNCA_SheetLink.SheetLink.Services
 {
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
@@ -17,16 +17,20 @@ namespace PNCA_SheetLink.SheetLink.Model
     {
         private Document _document;
         private UIDocument _uiDocument;
+        
+        
         public RevitDBUpdater(Document document, UIDocument uiDocument)
         {
             _document = document;
-            _uiDocument = uiDocument;
+            _uiDocument = uiDocument;            
         }
 
-        public void UpdateRevitDB(DataTable dataTable, ScheduleDataFromElements scheduledElements)
+        public List<LookupField> LookupFields { get; set; } = new List<LookupField>();
+        public void UpdateRevitDB(DataTable dataTable, ScheduleDataFromElementsExtractor scheduledElementsExtractor)
         {
             List<Exception> errorCollection = new List<Exception>();
             var existingParamIdValuePair = new Dictionary<Parameter, string>();
+            var lookupFields = scheduledElementsExtractor.GetScheduledFieldsLookupCollection();
             using (var t = new Transaction(_document, "Import Excel Data"))
             {
                 t.Start();
@@ -38,7 +42,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                         var paramName = row["ParameterName"].ToString();
 
                         var param = GetParameterFromSchedule(
-                            scheduledElements, elemId, paramName);
+                            scheduledElementsExtractor, elemId, paramName);
 
                         if (param == null)
                             continue;
@@ -84,7 +88,7 @@ namespace PNCA_SheetLink.SheetLink.Model
 
                         var elemId = new ElementId(Convert.ToInt64(row["ElementId"]));
                         var paramName = row["ParameterName"].ToString();
-                        var param = scheduledElements.ScheduledElements
+                        var param = scheduledElementsExtractor.ScheduledElements
                         .FirstOrDefault(a => a.RowElementId?.Value == Convert.ToInt64(row["ElementId"]))
                         ?.ScheduledFields?
                         .FirstOrDefault(f => f.FieldName == paramName)?
@@ -112,7 +116,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                                 if (param.StorageType != StorageType.Double)
                                     break;
 
-                                var scheduledField = scheduledElements.ScheduledElements
+                                var scheduledField = scheduledElementsExtractor.ScheduledElements
                                     .FirstOrDefault(a => a.RowElementId?.Value == Convert.ToInt64(row["ElementId"]))
                                     ?.ScheduledFields?
                                     .FirstOrDefault(f => f.FieldName == paramName);
@@ -146,7 +150,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                             case "ElementId":
                                 if (param.StorageType == StorageType.ElementId)
                                 {
-                                    var selectedElemId = FindElementIdByFieldAndName(paramName, row["ValueInTable1"].ToString(), scheduledElements);
+                                    var selectedElemId = FindElementIdByFieldAndName(paramName, row["ValueInTable1"].ToString(), lookupFields);
                                     var success = param.Set(selectedElemId);
                                     _document.Regenerate();
                                 }
@@ -212,11 +216,11 @@ namespace PNCA_SheetLink.SheetLink.Model
                 || param.Id == new ElementId(BuiltInParameter.VIEWPORT_DETAIL_NUMBER);              
         }
         private Parameter GetParameterFromSchedule(
-    ScheduleDataFromElements scheduledElements,
+    ScheduleDataFromElementsExtractor scheduledElementsExtractor,
     ElementId elemId,
     string paramName)
         {
-            return scheduledElements.ScheduledElements
+            return scheduledElementsExtractor.ScheduledElements
                 .FirstOrDefault(e => e.RowElementId?.Value == elemId.Value)?
                 .ScheduledFields?
                 .FirstOrDefault(f => f.FieldName == paramName)?
@@ -224,23 +228,19 @@ namespace PNCA_SheetLink.SheetLink.Model
         }
 
 
-        public static ElementId FindElementIdByFieldAndName(string fieldName, string elementName, ScheduleDataFromElements scheduleData)
+        public static ElementId FindElementIdByFieldAndName(string fieldName, string elementName, List<LookupField> lookupFields)
         {
-            if (scheduleData == null || string.IsNullOrWhiteSpace(fieldName) || string.IsNullOrWhiteSpace(elementName))
+            if (lookupFields == null || string.IsNullOrWhiteSpace(fieldName) || string.IsNullOrWhiteSpace(elementName))
                 return ElementId.InvalidElementId;
 
-            // Search efficiently using LINQ
-            foreach (var scheduledElement in scheduleData.ScheduledElements)
-            {
-                // Get the matching field
-                ScheduledField field =
-                    scheduledElement.ScheduledFields.FirstOrDefault(f => f.FieldName == fieldName);
+            // Get the matching field
+                var field = lookupFields.FirstOrDefault(f => f.FieldName == fieldName);
 
                 if (field == null)
-                    continue;
+                    return ElementId.InvalidElementId; 
 
                 if (field.ElementElementIdPairs == null || field.ElementElementIdPairs.Count == 0)
-                    continue;
+                    return ElementId.InvalidElementId; 
 
                 // Look for the element name inside ElementElementIdPairs
                 if (field.ElementElementIdPairs.ContainsKey(elementName))
@@ -248,7 +248,7 @@ namespace PNCA_SheetLink.SheetLink.Model
                     int idValue = field.ElementElementIdPairs[elementName];
                     return new ElementId(idValue);
                 }
-            }
+            
 
             // If nothing is found
             throw new InvalidOperationException(
