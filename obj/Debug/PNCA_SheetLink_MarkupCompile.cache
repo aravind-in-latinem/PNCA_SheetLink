@@ -16,5 +16,5 @@ DEBUG;TRACE
 138-68370781
 SheetLink\View\PNCATitleBar.xaml;SheetLink\View\ProgressLoggerView.xaml;SheetLink\View\SheetLinkImport.xaml;SheetLink\View\SheetLinkWithFormatting.xaml;SheetLink\View\SheetLinkExport.xaml;SheetLink\View\SheetLinkUserControl.xaml;
 
-True
+False
 

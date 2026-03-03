@@ -220,15 +220,6 @@ namespace PNCA_SheetLink.SheetLink.Services
                         field.UnitType = p.StorageType.ToString();
                         field.ForgeTypeId = p.Definition.GetDataType().TypeId;
                         field.FieldIndex = fieldIds[p.Id];
-                        //if (p.StorageType == StorageType.ElementId)
-                        //{
-                        //    PopulateElementLookupForElementIdParameter(_document, p.AsElementId(), field);
-                        //}
-                        //if(p.StorageType == StorageType.Integer && p.Definition.GetDataType() == SpecTypeId.Boolean.YesNo)
-                        //{
-                        //    PopulateElementLookupForBooleanParameter(field);
-                        //    field.UnitType = "Boolean";
-                        //}
                         scheduledFields.Add(field);
                     }
                 }
@@ -356,7 +347,7 @@ namespace PNCA_SheetLink.SheetLink.Services
                 name = fi.Symbol.Name;
             }
 
-            return string.IsNullOrWhiteSpace(name) ? ("Element " + e.Id.IntegerValue) : name;
+            return string.IsNullOrWhiteSpace(name) ? ("Element " + e.Id.Value) : name;
         }
 
 
