@@ -68,24 +68,31 @@ namespace PNCA_SheetLink.SheetLink.Services
                     toRoomParamNames.Add(ScheduleView.Definition.GetField(i).GetName());
                 }
             }
+            _progressLogger.LogTaskCompleted("Completed Reading all the field header information");
             //iterating through visible elements and sending respective parameters to parameter processors.
+            var instanceParameterCount = 0;
+            var typeParameterCount = 0;
+            var roomParameterCount = 0;
             foreach (var elem in visibleElem)
             {
 
                 var scheduledElement = new ScheduledElement();
                 scheduledElement.RowElementId = elem.Id;
                 //handle instance parameters
-                var instanceParameterSet = elem.Parameters.OfType<Parameter>().ToList();
-                scheduledElement.ScheduledFields.AddRange(ProcessParametersForExport(elem, paramIdFieldIndexPair, "Instance", instanceParameterSet));
-
+                var instanceParameterSet = ProcessParametersForExport(elem, paramIdFieldIndexPair, "Instance", elem.Parameters.OfType<Parameter>().ToList());
+                instanceParameterCount = instanceParameterSet.Count();
+                scheduledElement.ScheduledFields.AddRange(instanceParameterSet);
+                
                 //handle type parameters
                 var elemSymbol = _document.GetElement(elem.GetTypeId());
                 if(elemSymbol!=null)
                 {
-                    var typeParameterSet = elemSymbol.Parameters.OfType<Parameter>().ToList();
-                    scheduledElement.ScheduledFields.AddRange(ProcessParametersForExport(elem, paramIdFieldIndexPair, "Type", typeParameterSet));
+                    var typeParameterSet = ProcessParametersForExport(elem, paramIdFieldIndexPair, "Type", elemSymbol.Parameters.OfType<Parameter>().ToList());
+                    scheduledElement.ScheduledFields.AddRange(typeParameterSet);
+                    typeParameterCount = typeParameterSet.Count();
                 }
-
+                
+                
                 //handle room parameters
                 var fromRoomParameterSet = new List<Parameter>();
                 var toRoomParameterSet = new List<Parameter>();
@@ -97,14 +104,18 @@ namespace PNCA_SheetLink.SheetLink.Services
                 {
                     toRoomParameterSet = (elem as FamilyInstance).ToRoom?.Parameters.OfType<Parameter>().ToList() ?? new List<Parameter>();
                 }
-                var roomParameterSet = fromRoomParameterSet.Concat(toRoomParameterSet).ToList();
-                scheduledElement.ScheduledFields.AddRange(ProcessParametersForExport(elem, paramIdFieldIndexPair, "Room", roomParameterSet));
-
+                var roomParameterSet = ProcessParametersForExport(elem, paramIdFieldIndexPair, "Room", fromRoomParameterSet.Concat(toRoomParameterSet).ToList());
+                roomParameterCount = roomParameterSet.Count();
+                scheduledElement.ScheduledFields.AddRange(roomParameterSet);
+                
                 ScheduledElements.Add(scheduledElement);
 
             }
+            _progressLogger.LogTaskCompleted($"{instanceParameterCount} Instance Parameters has been processed");
+            _progressLogger.LogTaskCompleted($"{typeParameterCount} Type parameters has been processed");
+            _progressLogger.LogTaskCompleted($"{roomParameterCount} Room parameters has been processed");
             var dataTable = dataTableBuilder.PrepareTableData(ScheduledElements);
-
+            _progressLogger.LogTaskCompleted("Data Table created for the selected Revit Schedule");
             //TaskDialog.Show("Success", "Read Success");
 
             return dataTable;
@@ -119,7 +130,8 @@ namespace PNCA_SheetLink.SheetLink.Services
             var visibleElem = new FilteredElementCollector(_document, ScheduleView.Id).ToElements();
             var scheduleFieldCount = ScheduleView.Definition.GetFieldCount();
             var paramIdFieldIndexPair = new Dictionary<ElementId, int>();
-            var lookupList = new List<LookupField>();
+            HashSet<LookupField> lookupList =
+                new HashSet<LookupField>(new LookupFieldComparer());
 
 
             #endregion
@@ -151,48 +163,63 @@ namespace PNCA_SheetLink.SheetLink.Services
                     toRoomParamNames.Add(ScheduleView.Definition.GetField(i).GetName());
                 }
             }
-            //iterating through visible elements and sending respective parameters to parameter processors.
-
-            var elem = visibleElem.FirstOrDefault();
-
-            var scheduledElement = new ScheduledElement();
-            scheduledElement.RowElementId = elem.Id;
-            //handle instance parameters
-            var instanceParameterSet = elem.Parameters.OfType<Parameter>().ToList();
-            lookupList.AddRange(ProcessParametersForImport(elem, paramIdFieldIndexPair, "Instance", instanceParameterSet));
-
-            //handle type parameters
-            var elemSymbol = _document.GetElement(elem.GetTypeId());
-            if (elemSymbol != null)
-            {
-                var typeParameterSet = elemSymbol.Parameters.OfType<Parameter>().ToList();
-                lookupList.AddRange(ProcessParametersForImport(elem, paramIdFieldIndexPair, "Type", typeParameterSet));
-            }
-
-            //handle room parameters
-            var fromRoomParameterSet = new List<Parameter>();
-            var toRoomParameterSet = new List<Parameter>();
-            if (fromRoomParamNames.Count != 0)
-            {
-                fromRoomParameterSet = (elem as FamilyInstance).FromRoom?.Parameters.OfType<Parameter>().ToList() ?? new List<Parameter>();
-            }
-            if (toRoomParamNames.Count != 0)
-            {
-                toRoomParameterSet = (elem as FamilyInstance).ToRoom?.Parameters.OfType<Parameter>().ToList() ?? new List<Parameter>();
-            }
-            var roomParameterSet = fromRoomParameterSet.Concat(toRoomParameterSet).ToList();
-            lookupList.AddRange(ProcessParametersForImport(elem, paramIdFieldIndexPair, "Room", roomParameterSet));
-
-            //ScheduledElements.Add(scheduledElement);
 
             
-            //var dataTable = dataTableBuilder.PrepareTableData(ScheduledElements);
+            //iterating through visible elements and sending respective parameters to parameter processors.
 
-            //TaskDialog.Show("Success", "Read Success");
 
-            return lookupList;
+
+            
+            foreach (var elem in visibleElem)
+            {
+                
+                //handle instance parameters
+                var instanceParameterSet = ProcessParametersForImport(elem, paramIdFieldIndexPair, "Instance",
+                    elem.Parameters.OfType<Parameter>().ToList());
+                var instanceParameterCount = instanceParameterSet.Count();
+                
+                lookupList.UnionWith(instanceParameterSet);
+
+                //handle type parameters
+                var elemSymbol = _document.GetElement(elem.GetTypeId());
+                var typeParameterCount = 0;
+                if (elemSymbol != null)
+                {
+                    var typeParameterSet = ProcessParametersForImport(elem, paramIdFieldIndexPair, "Type",
+                        elemSymbol.Parameters.OfType<Parameter>().ToList());
+                    lookupList.UnionWith(typeParameterSet);
+                    typeParameterCount = typeParameterSet.Count();
+                }
+
+                //handle room parameters
+                var fromRoomParameterSet = new List<Parameter>();
+                var toRoomParameterSet = new List<Parameter>();
+                if (fromRoomParamNames.Count != 0)
+                {
+                    fromRoomParameterSet = (elem as FamilyInstance).FromRoom?.Parameters.OfType<Parameter>().ToList() ??
+                                           new List<Parameter>();
+                }
+
+                if (toRoomParamNames.Count != 0)
+                {
+                    toRoomParameterSet = (elem as FamilyInstance).ToRoom?.Parameters.OfType<Parameter>().ToList() ??
+                                         new List<Parameter>();
+                }
+
+                var roomParameterSet = ProcessParametersForImport(elem, paramIdFieldIndexPair, "Room",
+                    fromRoomParameterSet.Concat(toRoomParameterSet).ToList());
+                var roomParameterCount = roomParameterSet.Count();
+                _progressLogger.LogTaskCompleted($"Lookup data for fields created");
+                lookupList.UnionWith(roomParameterSet);
+                if(lookupList.Count()==scheduleFieldCount)
+                {
+                    break;
+                }
+            }
+
+            return lookupList.ToList();
         }
-
+        
         public List<ScheduledField> ProcessParametersForExport(Element elem, Dictionary<ElementId, int> fieldIds, string parameterType, List<Parameter> parameterCollection)
         {
             List<ScheduledField> scheduledFields = new List<ScheduledField>();
@@ -302,14 +329,6 @@ namespace PNCA_SheetLink.SheetLink.Services
             FilteredElementCollector collector = new FilteredElementCollector(doc);
             IList<Element> elements =
                 collector.OfCategoryId(category.Id).WhereElementIsNotElementType().ToElements();
-
-            ////var maxLookupCount = 60;
-
-            //if (elements.Count > maxLookupCount)
-            //{
-            //    // Too many elements to lookup, skip to avoid performance issues
-            //    return;
-            //}
 
             Dictionary<string, long> values = new Dictionary<string, long>();
 

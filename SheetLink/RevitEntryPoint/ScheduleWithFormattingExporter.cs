@@ -17,7 +17,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
     public class ScheduleWithFormattingExporter : IExternalCommand
 
     {
-        private readonly ILogger _logger;
+        private ILogger _logger;
 
         public ScheduleWithFormattingExporter()
         {

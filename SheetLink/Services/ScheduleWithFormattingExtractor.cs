@@ -12,13 +12,12 @@ namespace PNCA_SheetLink.SheetLink.Services
     public class ScheduleWithFormattingExtractor
 
     {
-        public DataTable GetDataTableWithRevitFormatting(Document document, ViewSchedule schedule)
+        private ILogger _progressLogger;
+        public DataTable GetDataTableWithRevitFormatting(Document document, ViewSchedule schedule, ILogger progressLogger)
         {
             
             var dataTable = new System.Data.DataTable();
-
-            var allSchedule = new FilteredElementCollector(document).OfClass(typeof(ViewSchedule)).Cast<ViewSchedule>().ToList();
-            //var schedule = allSchedule.Where(s => s.Name.Equals("Door Schedule")).FirstOrDefault();
+            _progressLogger = progressLogger;
 
             if (schedule == null)
             {
@@ -28,7 +27,9 @@ namespace PNCA_SheetLink.SheetLink.Services
 
             // Access table data
             TableData tableData = schedule.GetTableData();
+            _progressLogger.LogTaskCompleted("Retrieved Table Data");
             TableSectionData bodyData = tableData.GetSectionData(SectionType.Body);
+            _progressLogger.LogTaskCompleted("Retrieved Section Data");
             var coln = bodyData.NumberOfColumns;
             var rown = bodyData.NumberOfRows;
 
@@ -47,7 +48,7 @@ namespace PNCA_SheetLink.SheetLink.Services
                 rowCollection.Add(cellTexts);
             }
             dataTable = GenerateDataTable(rowCollection);
-
+            _progressLogger.LogTaskCompleted("Generated Data Table");
             return dataTable;
         }
 
