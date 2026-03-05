@@ -205,7 +205,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             bool hasValidSchedule = false;
             if (IsActiveViewSelected && !(_uiDocument?.ActiveView is ViewSchedule))
             {
-                TaskDialog.Show("Warning", "The active view which you opened the window on is not a schedule view");
+                TaskDialog.Show("Warning", "Open the intended schedule view for easier export");
             }
 
             if (IsActiveViewSelected && _uiDocument?.ActiveView is ViewSchedule)

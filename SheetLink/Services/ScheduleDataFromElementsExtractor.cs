@@ -217,9 +217,14 @@ namespace PNCA_SheetLink.SheetLink.Services
                 }
             }
 
+            var fieldForDeepSearch = lookupList.Where(a=>a.ParameterType)
+
             return lookupList.ToList();
         }
+
         
+
+
         public List<ScheduledField> ProcessParametersForExport(Element elem, Dictionary<ElementId, int> fieldIds, string parameterType, List<Parameter> parameterCollection)
         {
             List<ScheduledField> scheduledFields = new List<ScheduledField>();
@@ -261,7 +266,7 @@ namespace PNCA_SheetLink.SheetLink.Services
         public List<LookupField> ProcessParametersForImport(Element elem, Dictionary<ElementId, int> fieldIds, string parameterType, List<Parameter> parameterCollection)
         {
             List<LookupField> scheduledFields = new List<LookupField>();
-
+            List<int> fieldIndicesForElementIdDt = new List<int>();
             foreach (var p in parameterCollection)
             {
                 if (fieldIds.Keys.Contains(p.Id))
@@ -301,6 +306,8 @@ namespace PNCA_SheetLink.SheetLink.Services
                     }
                 }
             }
+
+            
 
             return scheduledFields;
         }
@@ -344,6 +351,18 @@ namespace PNCA_SheetLink.SheetLink.Services
 
             scheduledField.ElementElementIdPairs = values;
         }
+
+        private void PopulateElementLookupForElementIdParameterDeepMode(LookupField lookupField, IList<Element> visibleElements)
+        {
+            foreach (var element in visibleElements)
+            {
+                var referenceElement = element.get_Parameter(lookupField.ParameterElement.Definition).AsElementId();
+                PopulateElementLookupForElementIdParameter(_document, referenceElement, lookupField);
+            }
+        }
+
+
+
         public static void PopulateElementLookupForBooleanParameter(LookupField scheduledField)
         {
             if (scheduledField == null)
@@ -356,10 +375,16 @@ namespace PNCA_SheetLink.SheetLink.Services
             // Assign to ScheduledField
             scheduledField.ElementElementIdPairs = values;
         }
+
+
+
+        
+
+
         /// <summary>
         /// Safely get a usable name (fallback to symbol or id if unnamed).
         /// </summary>
-        
+
         private static string GetElementName(Element e)
         {
             string name = e.Name;

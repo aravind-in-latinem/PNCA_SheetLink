@@ -38,8 +38,9 @@ namespace PNCA_SheetLink.SheetLink.View
             string[] lines = uiData.Split(new[] { '\n' }, StringSplitOptions.None);
             foreach (string line in lines)
             {
-                DataUI.AppendText(line + Environment.NewLine +
-                                  "--------------------------------------------------"
+                if(!string.IsNullOrWhiteSpace(line))
+                    DataUI.AppendText(line +
+                                  "------------------------------------------------------------------------------"
                                   + Environment.NewLine);
             }
         }
