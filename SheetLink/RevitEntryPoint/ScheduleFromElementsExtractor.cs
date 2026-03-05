@@ -18,7 +18,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
     public class ScheduleFromElementsExtractor : IExternalCommand
 
     {
-        private static ILogger _logger;
+        private ILogger _logger;
 
         public ScheduleFromElementsExtractor()
         {

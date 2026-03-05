@@ -16,7 +16,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private readonly Document _document;
         private readonly UIDocument _uiDocument;
         private readonly System.Windows.Window _yourWindowReference;
-        private readonly ILogger _progressLogger;
+        private ILogger _progressLogger;
         // Properties for data binding
         private bool _isActiveViewSelected;
         private bool _isSelectScheduleSelected;
@@ -192,6 +192,10 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             // 3. Save location path is valid
 
             bool hasValidSchedule = false;
+            if (IsActiveViewSelected && !(_uiDocument?.ActiveView is ViewSchedule))
+            {
+                TaskDialog.Show("Warning", "Open the intended schedule view for easier export");
+            }
 
             if (IsActiveViewSelected && _uiDocument?.ActiveView is ViewSchedule)
             {
@@ -231,13 +235,16 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
                 // Export logic
                 ExportScheduleToExcel(targetSchedule, SaveLocation);
+                
+                
+                
 
-                TaskDialog.Show("Success", $"Schedule exported successfully to:\n{SaveLocation}");
             }
             catch (System.Exception ex)
             {
                 TaskDialog.Show("Export Error", $"Failed to export schedule: {ex.Message}");
             }
+
         }
 
         private void ExecuteCancel()
@@ -266,13 +273,20 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         {
             var progressLoggerView = new ProgressLoggerView(_progressLogger);
             progressLoggerView.Show();
-            
             ScheduleDataFromElementsExtractor scheduleDataFromElementsExtractor = new ScheduleDataFromElementsExtractor(schedule, _document, _progressLogger);
             var dataTableData = scheduleDataFromElementsExtractor.CreateScheduleDataTable();
-            _progressLogger.LogTaskCompleted("Schedule data extracted from Revit");
+            _progressLogger.LogTaskCompleted("Schedule data extraction complete. Proceed for writing..");
             ExcelWriter writer = new ExcelWriter(filePath);
             writer.CreateExcelFile(dataTableData);
             _progressLogger.LogTaskCompleted("Excel file created successfully");
+
+            var result = TaskDialog.Show("Success", $"Schedule exported successfully to:\n{SaveLocation}");
+            if (result == TaskDialogResult.Cancel || result == TaskDialogResult.Close)
+            {
+                progressLoggerView.Close();
+                _progressLogger = new ProgressLoggerViewModel();
+            }
+            
         }
 
         #endregion

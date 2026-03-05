@@ -22,15 +22,12 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                 ExceptionMessageCollection.AppendLine("Inner Exception: " + ex.InnerException.Message);
             }
             ExceptionMessageCollection.AppendLine("Stack Trace: " + ex.StackTrace);
-            ExceptionMessageCollection.AppendLine("--------------------------------------------------");
-            
             UpdateUIText();
         }
 
         public void LogTaskCompleted(string task)
         {
             ExceptionMessageCollection.AppendLine($"{task} ✓");
-            ExceptionMessageCollection.AppendLine("--------------------------------------------------");
             UpdateUIText();
         }
 

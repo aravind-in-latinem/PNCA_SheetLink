@@ -10,6 +10,7 @@ using System.Windows;
 using System.Text;
 using System;
 using PNCA_SheetLink.SheetLink.Services;
+using PNCA_SheetLink.SheetLink.View;
 
 namespace PNCA_SheetLink.SheetLink.ViewModel
 {
@@ -18,7 +19,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private readonly Document _document;
         private readonly UIDocument _uiDocument;
         private readonly System.Windows.Window _yourWindowReference;
-        private readonly ILogger _progressLogger;
+        private ILogger _progressLogger;
 
         // Properties for data binding
         private bool _isActiveViewSelected;
@@ -202,6 +203,10 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             // 3. Save location path is valid
 
             bool hasValidSchedule = false;
+            if (IsActiveViewSelected && !(_uiDocument?.ActiveView is ViewSchedule))
+            {
+                TaskDialog.Show("Warning", "Open the intended schedule view for easier export");
+            }
 
             if (IsActiveViewSelected && _uiDocument?.ActiveView is ViewSchedule)
             {
@@ -274,20 +279,27 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private void ImportScheduleFromExcel(ViewSchedule schedule, string filePath)
         {
             //System.Diagnostics.Debugger.Launch();
+            var progressLoggerView = new ProgressLoggerView(_progressLogger);
+            progressLoggerView.Show();
             var excelReader = new ExcelReader(FileLocation);
             var checkDataTable = excelReader.ReadExcelFile();
+            _progressLogger.LogTaskCompleted("Reading Excel file complete");
             ScheduleDataFromElementsExtractor scheduleDataFromElementsExtractor = new ScheduleDataFromElementsExtractor(schedule,_document,_progressLogger);
             var referenceDataTable = scheduleDataFromElementsExtractor.CreateScheduleDataTable();
+            _progressLogger.LogTaskCompleted("Reference schedule data created");
             if (!DataTableComparer.AreSchemasEqual(checkDataTable, referenceDataTable))
             {
                 TaskDialog.Show("Import Error", "The schema of the Excel file does not match the schedule schema.");
                 return;
             }
+            _progressLogger.LogTaskCompleted("Schema comparison completed and received a go signal");
             var differences = DataTableComparer.GetDifferenceReport(checkDataTable, referenceDataTable,scheduleDataFromElementsExtractor);
+            _progressLogger.LogTaskCompleted("Difference Report Generated");
             var revitDBUpdater = new RevitDBUpdater(_document, _uiDocument);
             try
             {
             revitDBUpdater.UpdateRevitDB(differences,scheduleDataFromElementsExtractor);
+            _progressLogger.LogTaskCompleted("Revit Database Updated with new values for the differences");
             }
             catch(Exception)
             {
@@ -295,8 +307,12 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                 TaskDialog.Show("Failed", $"Import Failed!");
                 return;
             }
-            TaskDialog.Show("Success", $"Import Succesfull!");
-
+            var result = TaskDialog.Show("Success", $"Import Successful!");
+            if (result == TaskDialogResult.Cancel || result == TaskDialogResult.Close)
+            {
+                progressLoggerView.Close();
+                _progressLogger = new ProgressLoggerViewModel();
+            }
         }
         #endregion
     }
