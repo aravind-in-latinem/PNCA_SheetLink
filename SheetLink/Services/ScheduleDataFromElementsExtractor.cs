@@ -217,7 +217,7 @@ namespace PNCA_SheetLink.SheetLink.Services
                 }
             }
 
-            var fieldForDeepSearch = lookupList.Where(a=>a.ParameterType)
+            //var fieldForDeepSearch = lookupList.Where(a=>a.ParameterType)
 
             return lookupList.ToList();
         }
