@@ -241,8 +241,9 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
                 // Export logic here
                 ExportScheduleToExcel(targetSchedule, SaveLocation);
+                System.Diagnostics.Process.Start(SaveLocation);
 
-                
+
             }
             catch (System.Exception ex)
             {
