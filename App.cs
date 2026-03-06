@@ -34,18 +34,14 @@ namespace PNCA_SheetLink
             PushButtonData buttonDataSheetExport = new PushButtonData("SheetExport","Export Excel With EId",assemblyPath,"PNCA_SheetLink.SheetLink.RevitEntryPoint.ScheduleFromElementsExtractor"
             );
 
-            // Icon Path
-            Uri uri = new Uri("pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/Sheetlink-exporticon-32x32.png",UriKind.Absolute);
-            
-            // To add Large Image for Button
+            // Icon Path and To add Large Image for Button
+            Uri uri = new Uri("pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/Sheetlink-exporticon-32x32.png",UriKind.Absolute);        
             BitmapImage iconSheetLink = new BitmapImage(uri);
             buttonDataSheetExport.LargeImage = iconSheetLink;
 
 
             // Adding Button to the Tab
             panel.AddItem(buttonDataSheetExport);
-
-
 
 
             return Result.Succeeded;

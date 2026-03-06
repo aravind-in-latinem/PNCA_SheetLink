@@ -163,7 +163,6 @@ namespace PNCA_SheetLink.SheetLink.Services
                     toRoomParamNames.Add(ScheduleView.Definition.GetField(i).GetName());
                 }
             }
-
             
             //iterating through visible elements and sending respective parameters to parameter processors.
 
@@ -311,9 +310,6 @@ namespace PNCA_SheetLink.SheetLink.Services
 
             return scheduledFields;
         }
-
-
-
 
         public static void PopulateElementLookupForElementIdParameter(
         Document doc,
