@@ -24,7 +24,7 @@
                 <RowDefinition Height="218"></RowDefinition>
             </Grid.RowDefinitions>
             <local:PNCATitleBar Title="ScheduleSyncer : Export with Revit Schedule Formatting Settings Retained"
-                                TitleIcon="pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/SchedulewithFormatting-Light.ico" />
+                                TitleIcon="pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/ScheduleExportwFormatting-TitleBar.ico" />
 
             <local:SheetLinkUserControl Grid.Row="1"
                 SaveLocation="{Binding SaveLocation, Mode=TwoWay}"

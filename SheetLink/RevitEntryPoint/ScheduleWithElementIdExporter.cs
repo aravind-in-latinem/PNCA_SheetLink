@@ -15,12 +15,12 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
 {
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
-    public class ScheduleFromElementsExtractor : IExternalCommand
+    public class ScheduleWithElementIdExporter : IExternalCommand
 
     {
         private ILogger _logger;
 
-        public ScheduleFromElementsExtractor()
+        public ScheduleWithElementIdExporter()
         {
             _logger = new ProgressLoggerViewModel();
         }

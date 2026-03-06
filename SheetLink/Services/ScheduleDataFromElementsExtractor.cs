@@ -172,7 +172,6 @@ namespace PNCA_SheetLink.SheetLink.Services
             
             foreach (var elem in visibleElem)
             {
-                
                 //handle instance parameters
                 var instanceParameterSet = ProcessParametersForImport(elem, paramIdFieldIndexPair, "Instance",
                     elem.Parameters.OfType<Parameter>().ToList());
