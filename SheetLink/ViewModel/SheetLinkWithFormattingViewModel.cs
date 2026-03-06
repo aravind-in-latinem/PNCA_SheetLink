@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using PNCA_SheetLink.SheetLink.Model;
 using PNCA_SheetLink.SheetLink.RevitEntryPoint;
 using PNCA_SheetLink.SheetLink.Services;
+using PNCA_SheetLink.SheetLink.View;
 
 namespace PNCA_SheetLink.SheetLink.ViewModel
 {
@@ -16,7 +17,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private readonly Document _document;
         private readonly UIDocument _uiDocument;
         private readonly System.Windows.Window _yourWindowReference;
-        private readonly IProgressLogger _progressLogger;
+        private ILogger _progressLogger;
 
         // Properties for data binding
         private bool _isActiveViewSelected;
@@ -28,7 +29,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
         private ObservableCollection<ScheduleViewItem> _filteredSchedules;
         private bool _shouldOpenDropDown;
 
-        public SheetLinkWithFormattingViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference, IProgressLogger progressLogger)
+        public SheetLinkWithFormattingViewModel(Document document, UIDocument uiDocument, System.Windows.Window yourWindowReference, ILogger progressLogger)
         {
             _document = document;
             _uiDocument = uiDocument;
@@ -197,6 +198,11 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
             bool hasValidSchedule = false;
 
+            if (IsActiveViewSelected && !(_uiDocument?.ActiveView is ViewSchedule))
+            {
+                TaskDialog.Show("Warning", "Open the intended schedule view for easier export");
+            }
+
             if (IsActiveViewSelected && _uiDocument?.ActiveView is ViewSchedule)
             {
                 hasValidSchedule = true;
@@ -236,7 +242,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                 // Export logic here
                 ExportScheduleToExcel(targetSchedule, SaveLocation);
 
-                TaskDialog.Show("Success", $"Schedule exported successfully to:\n{SaveLocation}");
+                
             }
             catch (System.Exception ex)
             {
@@ -268,10 +274,21 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
 
         private void ExportScheduleToExcel(ViewSchedule schedule, string filePath)
         {
+            var progressLoggerView = new ProgressLoggerView(_progressLogger);
+            progressLoggerView.Show();
             var schedulewithFormatting = new ScheduleWithFormattingExtractor();
-            var dataTable = schedulewithFormatting.GetDataTableWithRevitFormatting(_document, schedule);
+            var dataTable = schedulewithFormatting.GetDataTableWithRevitFormatting(_document, schedule, _progressLogger);
+            _progressLogger.LogTaskCompleted("Schedule data extracted from Revit");
             ExcelWriter writer = new ExcelWriter(filePath);
             writer.CreateExcelFile(dataTable);
+            _progressLogger.LogTaskCompleted("Excel file created successfully");
+
+            var result = TaskDialog.Show("Success", $"Schedule exported successfully to:\n{SaveLocation}");
+            if (result == TaskDialogResult.Cancel || result == TaskDialogResult.Close)
+            {
+                progressLoggerView.Close();
+                _progressLogger = new ProgressLoggerViewModel();
+            }
         }
 
         #endregion

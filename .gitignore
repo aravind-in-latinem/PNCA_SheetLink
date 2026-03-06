@@ -1,1 +1,41 @@
+<<<<<<< HEAD
+# Build output
+bin/
+obj/
+
+# Configuration-specific build folders
+Debug/
+Release/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Common .NET stuff
+[Bb]uild/
+x64/
+x86/
+[Aa]rtifacts/
+``
+=======
 /.vs
+/.vs/PNCA_SheetLink/CopilotIndices/17.12.53.23981/SemanticSymbols.db-wal
+/.vs/PNCA_SheetLink/v17/DocumentLayout.backup.json
+/obj/Debug/PNCA_SheetLink.csproj.AssemblyReference.cache
+/obj/Debug/PNCA_SheetLink.csproj.CoreCompileInputs.cache
+/obj/Debug/PNCA_SheetLink.csproj.GenerateResource.cache
+/obj/Debug/PNCA_SheetLink.dll
+/obj/Debug/PNCA_SheetLink.pdb
+/obj/Debug/PNCA_SheetLink_MarkupCompile.cache
+>>>>>>> d88dc9a0a9e1543cbdfd3cd7cead52259717a8b7
+/.vs/PNCA_SheetLink/CopilotIndices/17.12.53.23981/SemanticSymbols.db-wal
+/.vs/PNCA_SheetLink/CopilotIndices/17.12.53.23981/SemanticSymbols.db-wal
+/.vs/PNCA_SheetLink/v17/DocumentLayout.backup.json
+/.vs/PNCA_SheetLink/CopilotIndices/17.12.53.23981/SemanticSymbols.db-wal
+/.gitignore
+/.vs/PNCA_SheetLink/v17/DocumentLayout.backup.json
+/.vs/PNCA_SheetLink/v17/DocumentLayout.backup.json
+/obj/Debug/PNCA_SheetLink.csproj.AssemblyReference.cache
+/obj/Debug/PNCA_SheetLink.dll
+/obj/Debug/PNCA_SheetLink.pdb

@@ -24,7 +24,7 @@
                 <RowDefinition Height="218"></RowDefinition>
             </Grid.RowDefinitions>
             <local:PNCATitleBar Title="ScheduleSyncer : Export Schedule with Element ID"
-                                TitleIcon="pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/ImportExcel-Light.ico" />
+                                TitleIcon="pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/SheetLinkImport-TitleBar.ico" />
 
             <local:SheetLinkUserControl Grid.Row="1"
                                         SaveLocation="{Binding FileLocation, Mode=TwoWay}"

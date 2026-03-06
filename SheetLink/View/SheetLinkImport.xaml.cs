@@ -11,7 +11,7 @@ namespace PNCA_SheetLink.SheetLink.View
     public partial class SheetLinkImport : Window
     {
         
-        public SheetLinkImport(Document document, UIDocument uiDocument , IProgressLogger progressLogger)
+        public SheetLinkImport(Document document, UIDocument uiDocument , ILogger progressLogger)
         {
             InitializeComponent();
             this.DataContext = new SheetLinkImportViewModel(document, uiDocument,this,progressLogger);

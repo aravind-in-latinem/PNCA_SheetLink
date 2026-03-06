@@ -11,7 +11,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Icon="/PNCA_SheetLink;component/SheetLink/Resources/Sheetlink-icon-icofiletosend.ico">
+        >
 
     <!-- Outer border to simulate window frame -->
     <Border Background="#1E1E1E" BorderBrush="#3A3A3A" BorderThickness="1" VerticalAlignment="Top" Padding="0,0,0,0">
@@ -24,7 +24,7 @@
                 </Grid.RowDefinitions>
                 <local:PNCATitleBar 
                     Title="ScheduleSyncer : Export Schedule with Element ID"
-                                TitleIcon="pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/SheetlinkbyID-Light.ico"/>
+                                TitleIcon="pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/ScheduleExportwEID-TitleBar.ico"/>
                 <local:SheetLinkUserControl
                     Grid.Row="1"
                     SaveLocation="{Binding SaveLocation, Mode=TwoWay}"

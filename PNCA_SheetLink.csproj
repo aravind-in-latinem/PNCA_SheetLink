@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>PNCA_SheetLink.addin</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML, Version=0.102.2.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
       <HintPath>packages\ClosedXML.0.102.2\lib\netstandard2.0\ClosedXML.dll</HintPath>
@@ -157,11 +160,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.cs" />
+    <Compile Include="SheetLink\RevitEntryPoint\ScheduleWithElementIdExporter.cs" />
     <Compile Include="SheetLink\Services\DataTableComparer.cs" />
     <Compile Include="SheetLink\Services\ExcelReader.cs" />
     <Compile Include="SheetLink\Services\ExcelWriter.cs" />
+    <Compile Include="SheetLink\Services\LookupFieldComparer.cs" />
+    <Compile Include="SheetLink\Services\RecordLog.cs" />
     <Compile Include="SheetLink\ViewModel\ProgressLoggerViewModel.cs" />
-    <Compile Include="SheetLink\Services\IProgressLogger.cs" />
+    <Compile Include="SheetLink\Services\ILogger.cs" />
     <Compile Include="SheetLink\Model\LookupField.cs" />
     <Compile Include="SheetLink\Services\RevitFieldsInformationStorage.cs" />
     <Compile Include="SheetLink\Services\RevitDBUpdater.cs" />
@@ -172,7 +179,6 @@
     <Compile Include="SheetLink\Model\ScheduledElement.cs" />
     <Compile Include="SheetLink\Model\ScheduledField.cs" />
     <Compile Include="SheetLink\RevitEntryPoint\ImportDataFromExcel.cs" />
-    <Compile Include="SheetLink\RevitEntryPoint\ScheduleFromElementsExtractor.cs" />
     <Compile Include="SheetLink\ViewModel\RelayCommand.cs" />
     <Compile Include="SheetLink\ViewModel\ScheduleViewItem.cs" />
     <Compile Include="SheetLink\ViewModel\SheetLinkImportViewModel.cs" />
@@ -218,6 +224,9 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="PNCA_SheetLink.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -253,28 +262,22 @@
     <Resource Include="SheetLink\Resources\PNC logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SheetLink\Resources\Sheetlink-close-32x32.png" />
-    <Resource Include="SheetLink\Resources\Sheetlink-exporticon-32x32.png" />
-    <Resource Include="SheetLink\Resources\Sheetlink-importicon-32x32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="SheetLink\Resources\SheetlinkbyID-Light.ico">
+    <Resource Include="SheetLink\Resources\SheetLinkImport-Light.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SheetLink\Resources\ImportExcel-Light.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="SheetLink\Resources\SchedulewithFormatting-Light.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="SheetLink\Resources\ScheduleExportwEID-Light.ico" />
+    <Resource Include="SheetLink\Resources\ScheduleExportwFormatting-Light.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SheetLink\Resources\Sheetlink-icon-icofiletosend.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="SheetLink\Resources\SheetLinkImport-TitleBar.ico" />
+    <Resource Include="SheetLink\Resources\ScheduleExportwFormatting-TitleBar.ico" />
+    <Resource Include="SheetLink\Resources\ScheduleExportwEID-TitleBar.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)*.*" "C:\ProgramData\Autodesk\Revit\Addins\2024\PNCA_SheetLink\" /E /Y
+copy "$(ProjectDir)PNCA_SheetLink.addin" "C:\ProgramData\Autodesk\Revit\Addins\2024\" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

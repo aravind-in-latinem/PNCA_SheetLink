@@ -245,7 +245,7 @@ namespace PNCA_SheetLink.SheetLink.Services
                 // Look for the element name inside ElementElementIdPairs
                 if (field.ElementElementIdPairs.ContainsKey(elementName))
                 {
-                    int idValue = field.ElementElementIdPairs[elementName];
+                    long idValue = field.ElementElementIdPairs[elementName];
                     return new ElementId(idValue);
                 }
             
@@ -253,7 +253,6 @@ namespace PNCA_SheetLink.SheetLink.Services
             // If nothing is found
             throw new InvalidOperationException(
             $"No element found matching name '{elementName}' under field '{fieldName}'.");
-            return ElementId.InvalidElementId;
         }
 
     }

@@ -10,4 +10,5 @@ namespace PNCA_SheetLink.SheetLink.Model
         public List<ScheduledField> ScheduledFields { get; set; } = new List<ScheduledField>();
 
     }
+
 }
