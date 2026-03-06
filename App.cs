@@ -11,7 +11,7 @@ namespace PNCA_SheetLink
         public Result OnStartup(UIControlledApplication application)
         {
             string tabName = "PNCA® BIM Suite";
-            string panelNameSheet = "Sheets";
+            string panelNameSheet = "Schedules & Take-offs";
 
             // Create Tab (ignore if it already exists)
             try
@@ -31,17 +31,35 @@ namespace PNCA_SheetLink
             string assemblyPath = Assembly.GetExecutingAssembly().Location;
 
             // Button
-            PushButtonData buttonDataSheetExport = new PushButtonData("SheetExport","Export Excel With EId",assemblyPath,"PNCA_SheetLink.SheetLink.RevitEntryPoint.ScheduleFromElementsExtractor"
-            );
+            PushButtonData buttonDataScheduleExportWEId = new PushButtonData("ScheduleExportWEId",
+                "Export Excel \r\n With Elem-ID", assemblyPath,
+                "PNCA_SheetLink.SheetLink.RevitEntryPoint.ScheduleWithElementIdExporter");
+            PushButtonData buttonDataScheduleExportWFormat = new PushButtonData("ScheduleExportWFormat",
+                "Export Excel \r\n With Formatting", assemblyPath,
+                "PNCA_SheetLink.SheetLink.RevitEntryPoint.ScheduleWithFormattingExporter");
+            PushButtonData buttonDataScheduleImport = new PushButtonData("ScheduleImport", "Import Schedule",
+                assemblyPath, "PNCA_SheetLink.SheetLink.RevitEntryPoint.ImportDataFromExcel");
 
-            // Icon Path and To add Large Image for Button
-            Uri uri = new Uri("pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/Sheetlink-exporticon-32x32.png",UriKind.Absolute);        
-            BitmapImage iconSheetLink = new BitmapImage(uri);
-            buttonDataSheetExport.LargeImage = iconSheetLink;
+            // Icon Path
+            Uri uriScheduleExportWEId = new Uri("pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/ScheduleExportwEID-Light.ico", UriKind.Absolute);
+            Uri uriScheduleExportWFormat = new Uri("pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/ScheduleExportwFormatting-Light.ico", UriKind.Absolute);
+            Uri uriScheduleImport = new Uri("pack://application:,,,/PNCA_SheetLink;component/SheetLink/Resources/SheetLinkImport-Light.ico", UriKind.Absolute);
+            
+            // To add Large Image for Button
+            BitmapImage iconScheduleExportWEId = new BitmapImage(uriScheduleExportWEId);
+            buttonDataScheduleExportWEId.LargeImage = iconScheduleExportWEId;
+            BitmapImage iconScheduleExportWFormat = new BitmapImage(uriScheduleExportWFormat);
+            buttonDataScheduleExportWFormat.LargeImage = iconScheduleExportWFormat;
+            BitmapImage iconScheduleImport = new BitmapImage(uriScheduleImport);
+            buttonDataScheduleImport.LargeImage = iconScheduleImport;
 
 
             // Adding Button to the Tab
-            panel.AddItem(buttonDataSheetExport);
+            panel.AddItem(buttonDataScheduleExportWEId);
+            panel.AddItem(buttonDataScheduleExportWFormat);
+            panel.AddItem(buttonDataScheduleImport);
+
+
 
 
             return Result.Succeeded;

@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="SheetLink\RevitEntryPoint\ScheduleWithElementIdExporter.cs" />
     <Compile Include="SheetLink\Services\DataTableComparer.cs" />
     <Compile Include="SheetLink\Services\ExcelReader.cs" />
     <Compile Include="SheetLink\Services\ExcelWriter.cs" />
@@ -177,7 +178,6 @@
     <Compile Include="SheetLink\Model\ScheduledElement.cs" />
     <Compile Include="SheetLink\Model\ScheduledField.cs" />
     <Compile Include="SheetLink\RevitEntryPoint\ImportDataFromExcel.cs" />
-    <Compile Include="SheetLink\RevitEntryPoint\ScheduleFromElementsExtractor.cs" />
     <Compile Include="SheetLink\ViewModel\RelayCommand.cs" />
     <Compile Include="SheetLink\ViewModel\ScheduleViewItem.cs" />
     <Compile Include="SheetLink\ViewModel\SheetLinkImportViewModel.cs" />
@@ -261,29 +261,19 @@
     <Resource Include="SheetLink\Resources\PNC logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SheetLink\Resources\Sheetlink-close-32x32.png" />
-    <Resource Include="SheetLink\Resources\Sheetlink-exporticon-32x32.png" />
-    <Resource Include="SheetLink\Resources\Sheetlink-importicon-32x32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="SheetLink\Resources\SheetlinkbyID-Light.ico">
+    <Resource Include="SheetLink\Resources\SheetLinkImport-Light.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SheetLink\Resources\ImportExcel-Light.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="SheetLink\Resources\SchedulewithFormatting-Light.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="SheetLink\Resources\ScheduleExportwEID-Light.ico" />
+    <Resource Include="SheetLink\Resources\ScheduleExportwFormatting-Light.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SheetLink\Resources\Sheetlink-icon-icofiletosend.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="SheetLink\Resources\SheetLinkImport-TitleBar.ico" />
+    <Resource Include="SheetLink\Resources\ScheduleExportwFormatting-TitleBar.ico" />
+    <Resource Include="SheetLink\Resources\ScheduleExportwEID-TitleBar.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)*.*" "C:\ProgramData\Autodesk\Revit\Addins\2024\PNCA_SheetLink\" /E /Y
