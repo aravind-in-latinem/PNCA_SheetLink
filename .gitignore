@@ -1,1 +1,19 @@
-/.vs
+# Build output
+bin/
+obj/
+
+# Configuration-specific build folders
+Debug/
+Release/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Common .NET stuff
+[Bb]uild/
+x64/
+x86/
+[Aa]rtifacts/
+``
