@@ -166,6 +166,7 @@
     <Compile Include="SheetLink\Services\ExcelReader.cs" />
     <Compile Include="SheetLink\Services\ExcelWriter.cs" />
     <Compile Include="SheetLink\Services\LookupFieldComparer.cs" />
+    <Compile Include="SheetLink\Services\RecordLog.cs" />
     <Compile Include="SheetLink\ViewModel\ProgressLoggerViewModel.cs" />
     <Compile Include="SheetLink\Services\ILogger.cs" />
     <Compile Include="SheetLink\Model\LookupField.cs" />
