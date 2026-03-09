@@ -19,6 +19,9 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
 
     {
         private static ILogger _logger;
+        private Document _document;
+        private string _status;
+        private UserLogData _userLogData;
         public ImportDataFromExcel()
         {
             _logger = new ProgressLoggerViewModel();
@@ -28,27 +31,36 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
         {
             try
             {
-            var uiApplication = commandData.Application;
-            var application = uiApplication.Application;
-            var uiDocument = uiApplication.ActiveUIDocument;
-            var document = uiDocument.Document;
-            
+                _userLogData.StartTime = DateTime.Now.ToString("HH:mm:ss");
+                _userLogData.AddinName = "ImportExcel";
+                var uiApplication = commandData.Application;
+                var application = uiApplication.Application;
+                var uiDocument = uiApplication.ActiveUIDocument;
+                _document = uiDocument.Document;
+                
 
-            var importWindow = new SheetLinkImport(document, uiDocument, _logger);
+                var importWindow = new SheetLinkImport(_document, uiDocument, _logger);
 
-            // Set owner to Revit window so it stays on top and modal
-            System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(importWindow);
-            helper.Owner = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
-            
-            importWindow.ShowDialog();              
+                // Set owner to Revit window so it stays on top and modal
+                System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(importWindow);
+                helper.Owner = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
+                
+                importWindow.ShowDialog();
 
-
-            return Result.Succeeded;
+                _userLogData.ProjectName = _document.Title;
+                _userLogData.Status = "Success";
+                _userLogData.Message = "Schedule exported successfully";
+                _userLogData.StopTime = DateTime.Now.ToString("HH:mm:ss");
+                UserLogRecorder.SendLog(_userLogData);
+                return Result.Succeeded;
 
             }
             catch(Exception ex)
             {
                 TaskDialog.Show("Error", $"Failed to update element. Error: {ex.Message}");
+                _userLogData.Status = "Fail";
+                _userLogData.Message = "Schedule export failed";
+                UserLogRecorder.SendLog(_userLogData);
                 return Result.Failed;
             }
             

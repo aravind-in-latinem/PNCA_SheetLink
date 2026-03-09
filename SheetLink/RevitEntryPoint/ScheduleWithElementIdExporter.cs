@@ -21,45 +21,53 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
     {
         private ILogger _logger;
 
-        private Document doc;
-        private string Status;
+        private Document _document;
+        private string _status;
+        private UserLogData _userLogData;
 
         public ScheduleWithElementIdExporter()
         {
             _logger = new ProgressLoggerViewModel();
+            _userLogData = new UserLogData();
+
         }
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             try
             {
+                
+                _userLogData.StartTime = DateTime.Now.ToString("HH:mm:ss");
+                _userLogData.AddinName = "ScheduleWithElementIdExporter";
+                var uiApplication = commandData.Application;
+                var application = uiApplication.Application;
+                var uiDocument = uiApplication.ActiveUIDocument;
+                _document = uiDocument.Document;
+                
+                //var scheduleDataFromElements = new ScheduleDataFromElementsExtractor();
 
-            var uiApplication = commandData.Application;
-            var application = uiApplication.Application;
-            var uiDocument = uiApplication.ActiveUIDocument;
-            var document = uiDocument.Document;
-            //var scheduleDataFromElements = new ScheduleDataFromElementsExtractor();
-                         
 
-            // Create and show your window
-            var mainWindow = new SheetLinkExport(document, uiDocument, _logger);
+                // Create and show your window
+                var mainWindow = new SheetLinkExport(_document, uiDocument, _logger);
 
-            // Set owner to Revit window so it stays on top and modal
-            System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(mainWindow);
-            helper.Owner = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
+                // Set owner to Revit window so it stays on top and modal
+                System.Windows.Interop.WindowInteropHelper helper = new System.Windows.Interop.WindowInteropHelper(mainWindow);
+                helper.Owner = System.Diagnostics.Process.GetCurrentProcess().MainWindowHandle;
 
-            mainWindow.ShowDialog();
+                mainWindow.ShowDialog();
 
-            doc = document;
-            Status = "Sucess";
-
-            UserLogRecorder.SendLog(doc.Title, "SheetExport", "Success", "Sheets exported successfully");
-            return Result.Succeeded;
+                _userLogData.ProjectName = _document.Title;
+                _userLogData.Status = "Success";
+                _userLogData.Message = "Schedule exported successfully";
+                _userLogData.StopTime = DateTime.Now.ToString("HH:mm:ss");
+                UserLogRecorder.SendLog(_userLogData);
+                return Result.Succeeded;
             }
             catch (Exception ex)
             {
                 TaskDialog.Show("Error", $"Failed to save schedule. Error: {ex.Message}");
-                Status = "Fail";
-                UserLogRecorder.SendLog(doc.Title, "SheetExport", "Success", "Sheets exported successfully");
+                _userLogData.Status = "Fail";
+                _userLogData.Message = "Schedule export failed";
+                UserLogRecorder.SendLog(_userLogData);
                 return Result.Failed;
             }
             

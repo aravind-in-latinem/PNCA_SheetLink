@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using PNCA_SheetLink.SheetLink.Model;
 
 namespace PNCA_SheetLink.SheetLink.Services
 {
@@ -31,6 +32,33 @@ namespace PNCA_SheetLink.SheetLink.Services
                 await client.PostAsync(url, content);
             }
         }
+
+        public static async Task SendLog(UserLogData userLogData)
+        {
+            string url = "https://script.google.com/macros/s/AKfycbwlbiwtdfj_xsdvjjn5N1tS5UqZzvxheWxmMghQuk9VRL4Nwh3Uzj5Bq5hI4oAZa6mq/exec";
+
+            DateTime now = DateTime.Now;
+
+            var json = @"{
+            ""date"": """ + now.ToString("yyyy-MM-dd") + @""",
+            ""time"": """ + now.ToString("HH:mm:ss") + @""",
+            ""username"": """ + Environment.UserName + @""",
+            ""addin"": """ + userLogData.AddinName + @""",
+            ""project"": """ + userLogData.ProjectName + @""",
+            ""timestart"": """ + userLogData.StartTime + @""",
+            ""timestop"": """ + userLogData.StopTime + @""",
+            ""status"": """ + userLogData.Status + @""",
+            ""message"": """ + userLogData.Message + @"""
+        }";
+
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                await client.PostAsync(url, content);
+            }
+        }
+
+
     }
 
 }
