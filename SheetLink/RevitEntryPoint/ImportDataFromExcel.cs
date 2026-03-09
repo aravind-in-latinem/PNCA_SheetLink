@@ -47,20 +47,24 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
                 
                 importWindow.ShowDialog();
 
-                _userLogData.ProjectName = _document.Title;
+                // user long record creation on success
                 _userLogData.Status = "Success";
                 _userLogData.Message = "Schedule exported successfully";
                 _userLogData.StopTime = DateTime.Now.ToString("HH:mm:ss");
-                UserLogRecorder.SendLog(_userLogData);
+                UserLogRecorder.SendLog(_userLogData, _document);
+
                 return Result.Succeeded;
 
             }
             catch(Exception ex)
             {
                 TaskDialog.Show("Error", $"Failed to update element. Error: {ex.Message}");
+                
+                // user long record creation on failure
                 _userLogData.Status = "Fail";
                 _userLogData.Message = "Schedule export failed";
-                UserLogRecorder.SendLog(_userLogData);
+                UserLogRecorder.SendLog(_userLogData, _document);
+
                 return Result.Failed;
             }
             

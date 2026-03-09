@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PNCA_SheetLink.SheetLink.Model
 {
     public class UserLogData
