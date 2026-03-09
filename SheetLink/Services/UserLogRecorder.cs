@@ -8,7 +8,7 @@ namespace PNCA_SheetLink.SheetLink.Services
 {
     internal static class UserLogRecorder
     {
-        public static async Task SendLog(string projectName, string addinName, string status, string message)
+        public static async Task SendLog(string projectName, string addinName, string status, string message, string timeStart, string timeStop)
         {
             string url = "https://script.google.com/macros/s/AKfycbwlbiwtdfj_xsdvjjn5N1tS5UqZzvxheWxmMghQuk9VRL4Nwh3Uzj5Bq5hI4oAZa6mq/exec";
 
