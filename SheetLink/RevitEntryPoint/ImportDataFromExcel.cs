@@ -25,6 +25,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
         public ImportDataFromExcel()
         {
             _logger = new ProgressLoggerViewModel();
+            _userLogData = new UserLogData();
         }
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)

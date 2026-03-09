@@ -236,6 +236,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                 // Export logic
                 ExportScheduleToExcel(targetSchedule, SaveLocation);
                 System.Diagnostics.Process.Start(SaveLocation);
+                _progressLogger = new ProgressLoggerViewModel();
 
 
 
@@ -279,14 +280,6 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
             ExcelWriter writer = new ExcelWriter(filePath);
             writer.CreateExcelFile(dataTableData);
             _progressLogger.LogTaskCompleted("Excel file created successfully");
-
-            var result = TaskDialog.Show("Success", $"Schedule exported successfully to:\n{SaveLocation}");
-            if (result == TaskDialogResult.Cancel || result == TaskDialogResult.Close)
-            {
-                progressLoggerView.Close();
-                _progressLogger = new ProgressLoggerViewModel();
-            }
-            
         }
 
         #endregion

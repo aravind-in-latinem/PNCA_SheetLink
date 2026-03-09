@@ -246,7 +246,8 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                 }
 
                 // Import logic
-                ImportScheduleFromExcel(targetSchedule, FileLocation);                
+                ImportScheduleFromExcel(targetSchedule, FileLocation);
+                _progressLogger = new ProgressLoggerViewModel();
             }
             catch (System.Exception ex)
             {
@@ -307,12 +308,7 @@ namespace PNCA_SheetLink.SheetLink.ViewModel
                 TaskDialog.Show("Failed", $"Import Failed!");
                 return;
             }
-            var result = TaskDialog.Show("Success", $"Import Successful!");
-            if (result == TaskDialogResult.Cancel || result == TaskDialogResult.Close)
-            {
-                progressLoggerView.Close();
-                _progressLogger = new ProgressLoggerViewModel();
-            }
+            
         }
         #endregion
     }
