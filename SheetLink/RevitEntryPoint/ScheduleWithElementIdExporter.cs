@@ -52,14 +52,14 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
             doc = document;
             Status = "Sucess";
 
-            RecordLog.SendLog(doc.Title, "SheetExport", "Success", "Sheets exported successfully");
+            UserLogRecorder.SendLog(doc.Title, "SheetExport", "Success", "Sheets exported successfully");
             return Result.Succeeded;
             }
             catch (Exception ex)
             {
                 TaskDialog.Show("Error", $"Failed to save schedule. Error: {ex.Message}");
                 Status = "Fail";
-                RecordLog.SendLog(doc.Title, "SheetExport", "Success", "Sheets exported successfully");
+                UserLogRecorder.SendLog(doc.Title, "SheetExport", "Success", "Sheets exported successfully");
                 return Result.Failed;
             }
             

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PNCA_SheetLink.SheetLink.Services
 {
-    internal static class RecordLog
+    internal static class UserLogRecorder
     {
         public static async Task SendLog(string projectName, string addinName, string status, string message)
         {
