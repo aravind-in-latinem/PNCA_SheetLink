@@ -23,8 +23,6 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
 
         private Document doc;
         private string Status;
-        private DateTime nowStart;
-        private DateTime nowStop;
 
         public ScheduleWithElementIdExporter()
         {
@@ -34,7 +32,6 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
         {
             try
             {
-            nowStart = DateTime.Now;
 
             var uiApplication = commandData.Application;
             var application = uiApplication.Application;
@@ -55,16 +52,14 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
             doc = document;
             Status = "Sucess";
 
-                nowStop = DateTime.Now;
-                RecordLog.SendLog(doc.Title, "SheetExport", "Success", "Sheets exported successfully", nowStart.ToString(), nowStop.ToString());
+            UserLogRecorder.SendLog(doc.Title, "SheetExport", "Success", "Sheets exported successfully");
             return Result.Succeeded;
             }
             catch (Exception ex)
             {
                 TaskDialog.Show("Error", $"Failed to save schedule. Error: {ex.Message}");
                 Status = "Fail";
-                nowStop = DateTime.Now;
-                RecordLog.SendLog(doc.Title, "SheetExport", "Success", "Sheets exported successfully", nowStart.ToString(), nowStop.ToString());
+                UserLogRecorder.SendLog(doc.Title, "SheetExport", "Success", "Sheets exported successfully");
                 return Result.Failed;
             }
             
