@@ -20,9 +20,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
 
     {
         private ILogger _logger;
-
         private Document _document;
-        private string _status;
         private UserLogData _userLogData;
 
         public ScheduleWithElementIdExporter()
@@ -67,6 +65,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
                 TaskDialog.Show("Error", $"Failed to save schedule. Error: {ex.Message}");
                 _userLogData.Status = "Fail";
                 _userLogData.Message = "Schedule export failed";
+                _userLogData.StopTime = DateTime.Now.ToString("HH:mm:ss");
                 UserLogRecorder.SendLog(_userLogData);
                 return Result.Failed;
             }

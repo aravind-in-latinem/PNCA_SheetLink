@@ -49,7 +49,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
 
                 _userLogData.ProjectName = _document.Title;
                 _userLogData.Status = "Success";
-                _userLogData.Message = "Schedule exported successfully";
+                _userLogData.Message = "Schedule imported successfully";
                 _userLogData.StopTime = DateTime.Now.ToString("HH:mm:ss");
                 UserLogRecorder.SendLog(_userLogData);
                 return Result.Succeeded;
@@ -59,7 +59,8 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
             {
                 TaskDialog.Show("Error", $"Failed to update element. Error: {ex.Message}");
                 _userLogData.Status = "Fail";
-                _userLogData.Message = "Schedule export failed";
+                _userLogData.Message = "Schedule import failed";
+                _userLogData.StopTime = DateTime.Now.ToString("HH:mm:ss");
                 UserLogRecorder.SendLog(_userLogData);
                 return Result.Failed;
             }
