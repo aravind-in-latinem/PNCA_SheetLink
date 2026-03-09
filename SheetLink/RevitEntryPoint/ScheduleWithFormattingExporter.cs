@@ -27,6 +27,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
             _logger = new ProgressLoggerViewModel();
             _userLogData = new UserLogData();
         }
+
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             try
@@ -56,7 +57,7 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
                 return Result.Succeeded;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TaskDialog.Show("Error", $"Failed to update element. Error: {ex.Message}");
                 _userLogData.Status = "Failed";
@@ -65,5 +66,6 @@ namespace PNCA_SheetLink.SheetLink.RevitEntryPoint
                 UserLogRecorder.SendLog(_userLogData);
                 return Result.Failed;
             }
+        }
     }
-    }
+}
